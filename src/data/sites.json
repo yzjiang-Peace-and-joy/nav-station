@@ -1,0 +1,524 @@
+{
+  "categories": [
+    { "id": "dev", "name": "开发工具" },
+    { "id": "ai", "name": "人工智能" },
+    { "id": "design", "name": "设计灵感" },
+    { "id": "docs", "name": "技术文档" },
+    { "id": "news", "name": "资讯阅读" },
+    { "id": "tools", "name": "实用工具" },
+    { "id": "learn", "name": "学习成长" },
+    { "id": "life", "name": "生活效率" },
+    { "id": "community", "name": "社区论坛" },
+    { "id": "media", "name": "影音娱乐" }
+  ],
+  "tags": ["代码", "AI", "设计", "前端", "后端", "阅读", "写作", "效率", "视频", "社区", "学习", "工具", "云服务", "数据库", "开源", "资讯", "娱乐", "办公", "安全", "移动", "搜索", "出行", "音频", "社交"],
+  "sites": [
+    {
+      "id": "github",
+      "name": "GitHub",
+      "url": "https://github.com",
+      "desc": "全球最大的代码托管与协作平台",
+      "category": "dev",
+      "tags": ["代码", "开源"],
+      "pinned": true
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "url": "https://gitlab.com",
+      "desc": "一体化 DevOps 平台，支持 CI/CD",
+      "category": "dev",
+      "tags": ["代码", "开源"]
+    },
+    {
+      "id": "vscode",
+      "name": "Visual Studio Code",
+      "url": "https://code.visualstudio.com",
+      "desc": "轻量强大的跨平台代码编辑器",
+      "category": "dev",
+      "tags": ["代码", "前端", "工具"]
+    },
+    {
+      "id": "stackoverflow",
+      "name": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "desc": "程序员问答社区，海量解决方案",
+      "category": "dev",
+      "tags": ["代码", "社区"]
+    },
+    {
+      "id": "npm",
+      "name": "npm",
+      "url": "https://www.npmjs.com",
+      "desc": "JavaScript 包管理与分发平台",
+      "category": "dev",
+      "tags": ["代码", "前端", "后端"]
+    },
+    {
+      "id": "json-viewer",
+      "name": "JSON.cn",
+      "url": "https://www.json.cn",
+      "desc": "在线 JSON 解析、格式化与校验",
+      "category": "dev",
+      "tags": ["工具", "代码"]
+    },
+    {
+      "id": "regex101",
+      "name": "Regex101",
+      "url": "https://regex101.com",
+      "desc": "在线正则表达式测试与调试工具",
+      "category": "dev",
+      "tags": ["工具", "代码"]
+    },
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT",
+      "url": "https://chat.openai.com",
+      "desc": "OpenAI 对话式 AI 助手",
+      "category": "ai",
+      "tags": ["AI", "工具"],
+      "pinned": true
+    },
+    {
+      "id": "claude",
+      "name": "Claude",
+      "url": "https://claude.ai",
+      "desc": "Anthropic 智能对话助手",
+      "category": "ai",
+      "tags": ["AI", "写作"]
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini",
+      "url": "https://gemini.google.com",
+      "desc": "Google 多模态 AI 助手",
+      "category": "ai",
+      "tags": ["AI", "工具"]
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face",
+      "url": "https://huggingface.co",
+      "desc": "开源 AI 模型与数据集社区",
+      "category": "ai",
+      "tags": ["AI", "社区", "开源"]
+    },
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "url": "https://www.midjourney.com",
+      "desc": "高质量 AI 图像生成平台",
+      "category": "ai",
+      "tags": ["AI", "设计"]
+    },
+    {
+      "id": "notion-ai",
+      "name": "Notion AI",
+      "url": "https://www.notion.so",
+      "desc": "笔记协作与 AI 写作一体化",
+      "category": "ai",
+      "tags": ["AI", "效率", "写作"]
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity",
+      "url": "https://www.perplexity.ai",
+      "desc": "AI 搜索引擎，答案附引用来源",
+      "category": "ai",
+      "tags": ["AI", "搜索"]
+    },
+    {
+      "id": "figma",
+      "name": "Figma",
+      "url": "https://www.figma.com",
+      "desc": "协作式界面设计与原型工具",
+      "category": "design",
+      "tags": ["设计", "效率"]
+    },
+    {
+      "id": "dribbble",
+      "name": "Dribbble",
+      "url": "https://dribbble.com",
+      "desc": "全球设计师作品展示社区",
+      "category": "design",
+      "tags": ["设计", "社区"]
+    },
+    {
+      "id": "behance",
+      "name": "Behance",
+      "url": "https://www.behance.net",
+      "desc": "Adobe 旗下创意作品集平台",
+      "category": "design",
+      "tags": ["设计", "社区"]
+    },
+    {
+      "id": "unsplash",
+      "name": "Unsplash",
+      "url": "https://unsplash.com",
+      "desc": "免费高质量无版权图库",
+      "category": "design",
+      "tags": ["设计", "工具"]
+    },
+    {
+      "id": "material-icons",
+      "name": "Material Icons",
+      "url": "https://fonts.google.com/icons",
+      "desc": "Google 官方图标字体库",
+      "category": "design",
+      "tags": ["设计", "前端"]
+    },
+    {
+      "id": "coolors",
+      "name": "Coolors",
+      "url": "https://coolors.co",
+      "desc": "一键生成配色方案的调色工具",
+      "category": "design",
+      "tags": ["设计", "工具"]
+    },
+    {
+      "id": "mdn",
+      "name": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "desc": "前端开发权威参考文档",
+      "category": "docs",
+      "tags": ["前端", "阅读", "代码"],
+      "pinned": true
+    },
+    {
+      "id": "vuejs",
+      "name": "Vue.js",
+      "url": "https://vuejs.org",
+      "desc": "渐进式 JavaScript 框架官方文档",
+      "category": "docs",
+      "tags": ["前端", "阅读"]
+    },
+    {
+      "id": "react",
+      "name": "React",
+      "url": "https://react.dev",
+      "desc": "用于构建用户界面的库官方文档",
+      "category": "docs",
+      "tags": ["前端", "阅读"]
+    },
+    {
+      "id": "nodejs",
+      "name": "Node.js",
+      "url": "https://nodejs.org",
+      "desc": "Node.js 运行时官方文档",
+      "category": "docs",
+      "tags": ["后端", "阅读"]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "url": "https://docs.python.org",
+      "desc": "Python 语言官方文档",
+      "category": "docs",
+      "tags": ["后端", "阅读", "学习"]
+    },
+    {
+      "id": "rust",
+      "name": "Rust",
+      "url": "https://doc.rust-lang.org",
+      "desc": "Rust 语言官方参考文档",
+      "category": "docs",
+      "tags": ["代码", "阅读", "后端"]
+    },
+    {
+      "id": "vercel",
+      "name": "Vercel",
+      "url": "https://vercel.com",
+      "desc": "前端项目一键部署托管平台",
+      "category": "dev",
+      "tags": ["前端", "云服务", "工具"]
+    },
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "url": "https://www.netlify.com",
+      "desc": "静态网站托管与 Serverless 平台",
+      "category": "dev",
+      "tags": ["前端", "云服务", "工具"]
+    },
+    {
+      "id": "hackernews",
+      "name": "Hacker News",
+      "url": "https://news.ycombinator.com",
+      "desc": "硅谷极客聚集的科技新闻社区",
+      "category": "news",
+      "tags": ["资讯", "社区", "阅读"]
+    },
+    {
+      "id": "36kr",
+      "name": "36氪",
+      "url": "https://36kr.com",
+      "desc": "科技与创投深度资讯媒体",
+      "category": "news",
+      "tags": ["资讯", "阅读"]
+    },
+    {
+      "id": "solidot",
+      "name": "Solidot",
+      "url": "https://www.solidot.org",
+      "desc": "开源与科技领域的严肃新闻站",
+      "category": "news",
+      "tags": ["资讯", "开源", "阅读"]
+    },
+    {
+      "id": "rsshub",
+      "name": "RSSHub",
+      "url": "https://rsshub.app",
+      "desc": "万物皆可订阅的 RSS 生成服务",
+      "category": "news",
+      "tags": ["阅读", "开源", "工具"]
+    },
+    {
+      "id": "36kr-tech",
+      "name": "少数派",
+      "url": "https://sspai.com",
+      "desc": "数字生活与效率技巧分享社区",
+      "category": "news",
+      "tags": ["资讯", "效率", "社区"]
+    },
+    {
+      "id": "geekpark",
+      "name": "极客公园",
+      "url": "https://www.geekpark.net",
+      "desc": "聚焦创新与商业的科技媒体",
+      "category": "news",
+      "tags": ["资讯", "阅读"]
+    },
+    {
+      "id": "excalidraw",
+      "name": "Excalidraw",
+      "url": "https://excalidraw.com",
+      "desc": "手绘风协作白板与图表工具",
+      "category": "tools",
+      "tags": ["效率", "工具", "设计"]
+    },
+    {
+      "id": "translate",
+      "name": "DeepL",
+      "url": "https://www.deepl.com",
+      "desc": "翻译质量出色的在线翻译",
+      "category": "tools",
+      "tags": ["效率", "工具"]
+    },
+    {
+      "id": "tiny-png",
+      "name": "TinyPNG",
+      "url": "https://tinypng.com",
+      "desc": "智能压缩 PNG 与 JPEG 图片",
+      "category": "tools",
+      "tags": ["设计", "工具"]
+    },
+    {
+      "id": "remove-bg",
+      "name": "remove.bg",
+      "url": "https://www.remove.bg",
+      "desc": "AI 一键在线抠图去背景",
+      "category": "tools",
+      "tags": ["AI", "工具", "设计"]
+    },
+    {
+      "id": "cron",
+      "name": "crontab.guru",
+      "url": "https://crontab.guru",
+      "desc": "Cron 表达式可视化生成与解释",
+      "category": "tools",
+      "tags": ["代码", "工具"]
+    },
+    {
+      "id": "coursera",
+      "name": "Coursera",
+      "url": "https://www.coursera.org",
+      "desc": "全球名校在线课程平台",
+      "category": "learn",
+      "tags": ["学习", "视频"]
+    },
+    {
+      "id": "khan-academy",
+      "name": "Khan Academy",
+      "url": "https://www.khanacademy.org",
+      "desc": "免费优质的数学与科学课程",
+      "category": "learn",
+      "tags": ["学习", "视频"]
+    },
+    {
+      "id": "freecodecamp",
+      "name": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org",
+      "desc": "免费学编程的互动练习平台",
+      "category": "learn",
+      "tags": ["学习", "代码", "开源"]
+    },
+    {
+      "id": "leetcode",
+      "name": "LeetCode",
+      "url": "https://leetcode.cn",
+      "desc": "算法刷题与面试准备平台",
+      "category": "learn",
+      "tags": ["学习", "代码"]
+    },
+    {
+      "id": "bilibili",
+      "name": "哔哩哔哩",
+      "url": "https://www.bilibili.com",
+      "desc": "视频社区，海量学习与娱乐内容",
+      "category": "learn",
+      "tags": ["视频", "学习", "娱乐"]
+    },
+    {
+      "id": "yuque",
+      "name": "语雀",
+      "url": "https://www.yuque.com",
+      "desc": "知识库与文档协作工具",
+      "category": "life",
+      "tags": ["写作", "效率", "办公"]
+    },
+    {
+      "id": "feishu",
+      "name": "飞书",
+      "url": "https://www.feishu.cn",
+      "desc": "一站式协作办公与文档平台",
+      "category": "life",
+      "tags": ["办公", "效率", "工具"]
+    },
+    {
+      "id": "todoist",
+      "name": "Todoist",
+      "url": "https://todoist.com",
+      "desc": "跨平台任务管理与待办清单",
+      "category": "life",
+      "tags": ["效率", "工具"]
+    },
+    {
+      "id": "12306",
+      "name": "铁路12306",
+      "url": "https://www.12306.cn",
+      "desc": "火车票官方购票与余票查询",
+      "category": "life",
+      "tags": ["工具", "出行"]
+    },
+    {
+      "id": "github-zh",
+      "name": "GitHub 中文社区",
+      "url": "https://github.com",
+      "desc": "开源项目讨论的中文协作空间",
+      "category": "community",
+      "tags": ["社区", "代码", "开源"]
+    },
+    {
+      "id": "v2ex",
+      "name": "V2EX",
+      "url": "https://www.v2ex.com",
+      "desc": "程序员创意与工作交流社区",
+      "category": "community",
+      "tags": ["社区", "代码", "资讯"]
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "url": "https://www.reddit.com",
+      "desc": "全球大型主题讨论社区",
+      "category": "community",
+      "tags": ["社区", "资讯", "娱乐"]
+    },
+    {
+      "id": "zhihu",
+      "name": "知乎",
+      "url": "https://www.zhihu.com",
+      "desc": "高质量问答与知识分享社区",
+      "category": "community",
+      "tags": ["社区", "阅读", "资讯"]
+    },
+    {
+      "id": "devto",
+      "name": "DEV Community",
+      "url": "https://dev.to",
+      "desc": "开发者分享与交流的博客社区",
+      "category": "community",
+      "tags": ["社区", "代码", "写作"]
+    },
+    {
+      "id": "douban",
+      "name": "豆瓣",
+      "url": "https://www.douban.com",
+      "desc": "书影音评分与文艺生活社区",
+      "category": "media",
+      "tags": ["娱乐", "阅读", "社区"]
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://www.youtube.com",
+      "desc": "全球最大视频分享平台",
+      "category": "media",
+      "tags": ["视频", "娱乐"]
+    },
+    {
+      "id": "spotify",
+      "name": "Spotify",
+      "url": "https://open.spotify.com",
+      "desc": "海量音乐与播客流媒体服务",
+      "category": "media",
+      "tags": ["娱乐", "音频"]
+    },
+    {
+      "id": "netease-music",
+      "name": "网易云音乐",
+      "url": "https://music.163.com",
+      "desc": "热门音乐与歌单社区平台",
+      "category": "media",
+      "tags": ["娱乐", "音频"]
+    },
+    {
+      "id": "mdn-zh",
+      "name": "MDN 中文",
+      "url": "https://developer.mozilla.org/zh-CN",
+      "desc": "Web 开发文档中文版",
+      "category": "docs",
+      "tags": ["前端", "阅读", "代码"]
+    },
+    {
+      "id": "chatgpt-zh",
+      "name": "文心一言",
+      "url": "https://yiyan.baidu.com",
+      "desc": "百度知识增强大模型助手",
+      "category": "ai",
+      "tags": ["AI", "工具"]
+    },
+    {
+      "id": "toolfk",
+      "name": "ToolFK",
+      "url": "https://www.toolfk.com",
+      "desc": "在线工具大全，免安装即用",
+      "category": "tools",
+      "tags": ["工具", "效率"]
+    },
+    {
+      "id": "smallpdf",
+      "name": "Smallpdf",
+      "url": "https://smallpdf.com",
+      "desc": "PDF 转换压缩与编辑工具箱",
+      "category": "tools",
+      "tags": ["办公", "工具"]
+    },
+    {
+      "id": "figma-community",
+      "name": "Canva",
+      "url": "https://www.canva.com",
+      "desc": "海量模板的在线平面设计平台",
+      "category": "design",
+      "tags": ["设计", "办公"]
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram",
+      "url": "https://telegram.org",
+      "desc": "安全快速的多端即时通讯",
+      "category": "life",
+      "tags": ["社交", "效率", "工具"]
+    }
+  ]
+}
