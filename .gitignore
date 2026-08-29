@@ -1,0 +1,27 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+dist-ssr/
+
+# 本地环境
+*.local
+.env
+.env.*
+!.env.example
+
+# 编辑器
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# 日志
+logs/
+*.log
+npm-debug.log*
+
+# Cursor / 计划文件（保留计划但排除临时文件）
+.cursor/
+*.plan.md
