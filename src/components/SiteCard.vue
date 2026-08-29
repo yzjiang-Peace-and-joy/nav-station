@@ -39,7 +39,11 @@ function onTogglePin() {
 </script>
 
 <template>
-  <article class="site-card" :style="staggerStyle">
+  <article
+    class="site-card"
+    :style="staggerStyle"
+    :aria-describedby="site.detail ? `tip-${site.id}` : undefined"
+  >
     <a :href="site.url" target="_blank" rel="noopener noreferrer" class="site-card-link">
       <div class="site-card-top">
         <img
@@ -57,6 +61,14 @@ function onTogglePin() {
       </div>
       <p class="site-desc">{{ site.desc }}</p>
     </a>
+    <div
+      v-if="site.detail"
+      :id="`tip-${site.id}`"
+      class="site-tooltip"
+      role="tooltip"
+    >
+      {{ site.detail }}
+    </div>
     <button
       type="button"
       class="pin-btn"

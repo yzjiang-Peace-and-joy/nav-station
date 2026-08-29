@@ -375,6 +375,11 @@ a {
 .site-card:hover {
   background-color: var(--bg-hover);
   border-color: var(--border);
+  z-index: 10;
+}
+
+.site-card:focus-within {
+  z-index: 10;
 }
 
 .site-card-link {
@@ -486,6 +491,33 @@ a {
   text-overflow: ellipsis;
 }
 
+.site-tooltip {
+  position: absolute;
+  top: calc(100% + var(--space-1));
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  line-height: 1.55;
+  color: var(--fg-secondary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-hover);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition), visibility var(--transition);
+}
+
+.site-card:hover .site-tooltip,
+.site-card:focus-within .site-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* ==========================================================================
    Empty State
    ========================================================================== */
@@ -540,6 +572,7 @@ a {
   .theme-toggle,
   .tag-chip,
   .site-card,
+  .site-tooltip,
   .pin-btn,
   .empty-clear-btn {
     transition: none;

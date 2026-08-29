@@ -1,17 +1,72 @@
 {
   "categories": [
-    { "id": "dev", "name": "开发工具" },
-    { "id": "ai", "name": "人工智能" },
-    { "id": "design", "name": "设计灵感" },
-    { "id": "docs", "name": "技术文档" },
-    { "id": "news", "name": "资讯阅读" },
-    { "id": "tools", "name": "实用工具" },
-    { "id": "learn", "name": "学习成长" },
-    { "id": "life", "name": "生活效率" },
-    { "id": "community", "name": "社区论坛" },
-    { "id": "media", "name": "影音娱乐" }
+    {
+      "id": "dev",
+      "name": "开发工具"
+    },
+    {
+      "id": "ai",
+      "name": "人工智能"
+    },
+    {
+      "id": "design",
+      "name": "设计灵感"
+    },
+    {
+      "id": "docs",
+      "name": "技术文档"
+    },
+    {
+      "id": "news",
+      "name": "资讯阅读"
+    },
+    {
+      "id": "tools",
+      "name": "实用工具"
+    },
+    {
+      "id": "learn",
+      "name": "学习成长"
+    },
+    {
+      "id": "life",
+      "name": "生活效率"
+    },
+    {
+      "id": "community",
+      "name": "社区论坛"
+    },
+    {
+      "id": "media",
+      "name": "影音娱乐"
+    }
   ],
-  "tags": ["代码", "AI", "设计", "前端", "后端", "阅读", "写作", "效率", "视频", "社区", "学习", "工具", "云服务", "数据库", "开源", "资讯", "娱乐", "办公", "安全", "移动", "搜索", "出行", "音频", "社交"],
+  "tags": [
+    "代码",
+    "AI",
+    "设计",
+    "前端",
+    "后端",
+    "阅读",
+    "写作",
+    "效率",
+    "视频",
+    "社区",
+    "学习",
+    "工具",
+    "云服务",
+    "数据库",
+    "开源",
+    "资讯",
+    "娱乐",
+    "办公",
+    "安全",
+    "移动",
+    "搜索",
+    "出行",
+    "音频",
+    "社交"
+  ],
   "sites": [
     {
       "id": "github",
@@ -19,8 +74,12 @@
       "url": "https://github.com",
       "desc": "全球最大的代码托管与协作平台",
       "category": "dev",
-      "tags": ["代码", "开源"],
-      "pinned": true
+      "tags": [
+        "代码",
+        "开源"
+      ],
+      "pinned": true,
+      "detail": "提供 Git 仓库托管、Pull Request 审查、Issue 跟踪与 Actions CI/CD，是全球开发者协作与开源项目的核心枢纽。"
     },
     {
       "id": "gitlab",
@@ -28,7 +87,11 @@
       "url": "https://gitlab.com",
       "desc": "一体化 DevOps 平台，支持 CI/CD",
       "category": "dev",
-      "tags": ["代码", "开源"]
+      "tags": [
+        "代码",
+        "开源"
+      ],
+      "detail": "集代码托管、CI/CD 流水线、容器镜像仓库与安全扫描于一体，支持从计划到部署的完整 DevOps 流程。"
     },
     {
       "id": "vscode",
@@ -36,7 +99,12 @@
       "url": "https://code.visualstudio.com",
       "desc": "轻量强大的跨平台代码编辑器",
       "category": "dev",
-      "tags": ["代码", "前端", "工具"]
+      "tags": [
+        "代码",
+        "前端",
+        "工具"
+      ],
+      "detail": "微软出品的免费代码编辑器，拥有丰富插件生态，支持调试、Git 集成与远程开发，适合各类语言与项目规模。"
     },
     {
       "id": "stackoverflow",
@@ -44,7 +112,11 @@
       "url": "https://stackoverflow.com",
       "desc": "程序员问答社区，海量解决方案",
       "category": "dev",
-      "tags": ["代码", "社区"]
+      "tags": [
+        "代码",
+        "社区"
+      ],
+      "detail": "全球最大的程序员问答社区，涵盖各技术栈的问题与高质量解答，是排查 Bug 与查阅最佳实践的常用资源。"
     },
     {
       "id": "npm",
@@ -52,7 +124,12 @@
       "url": "https://www.npmjs.com",
       "desc": "JavaScript 包管理与分发平台",
       "category": "dev",
-      "tags": ["代码", "前端", "后端"]
+      "tags": [
+        "代码",
+        "前端",
+        "后端"
+      ],
+      "detail": "Node.js 官方包管理器与全球最大的 JavaScript 模块注册表，支持版本管理、依赖解析与私有包发布。"
     },
     {
       "id": "json-viewer",
@@ -60,7 +137,11 @@
       "url": "https://www.json.cn",
       "desc": "在线 JSON 解析、格式化与校验",
       "category": "dev",
-      "tags": ["工具", "代码"]
+      "tags": [
+        "工具",
+        "代码"
+      ],
+      "detail": "在线 JSON 格式化、压缩、校验与转义工具，支持树形视图浏览，适合接口调试与配置文件检查。"
     },
     {
       "id": "regex101",
@@ -68,7 +149,11 @@
       "url": "https://regex101.com",
       "desc": "在线正则表达式测试与调试工具",
       "category": "dev",
-      "tags": ["工具", "代码"]
+      "tags": [
+        "工具",
+        "代码"
+      ],
+      "detail": "支持多种正则引擎的在线测试工具，实时高亮匹配结果并附详细解释，是编写与调试正则表达式的利器。"
     },
     {
       "id": "chatgpt",
@@ -76,8 +161,12 @@
       "url": "https://chat.openai.com",
       "desc": "OpenAI 对话式 AI 助手",
       "category": "ai",
-      "tags": ["AI", "工具"],
-      "pinned": true
+      "tags": [
+        "AI",
+        "工具"
+      ],
+      "pinned": true,
+      "detail": "OpenAI 推出的对话式 AI，支持多轮上下文、代码生成、文档撰写与图像理解，适合日常问答与创意辅助。"
     },
     {
       "id": "claude",
@@ -85,7 +174,11 @@
       "url": "https://claude.ai",
       "desc": "Anthropic 智能对话助手",
       "category": "ai",
-      "tags": ["AI", "写作"]
+      "tags": [
+        "AI",
+        "写作"
+      ],
+      "detail": "Anthropic 开发的大语言模型助手，以长上下文与安全对齐见长，擅长分析、写作与复杂推理任务。"
     },
     {
       "id": "gemini",
@@ -93,7 +186,11 @@
       "url": "https://gemini.google.com",
       "desc": "Google 多模态 AI 助手",
       "category": "ai",
-      "tags": ["AI", "工具"]
+      "tags": [
+        "AI",
+        "工具"
+      ],
+      "detail": "Google 多模态 AI 助手，可处理文本、图像与代码，深度整合 Google 生态，支持实时搜索与多语言交互。"
     },
     {
       "id": "huggingface",
@@ -101,7 +198,12 @@
       "url": "https://huggingface.co",
       "desc": "开源 AI 模型与数据集社区",
       "category": "ai",
-      "tags": ["AI", "社区", "开源"]
+      "tags": [
+        "AI",
+        "社区",
+        "开源"
+      ],
+      "detail": "开源 AI 社区平台，托管海量预训练模型、数据集与 Spaces 演示，是 NLP 与机器学习实践的重要入口。"
     },
     {
       "id": "midjourney",
@@ -109,7 +211,11 @@
       "url": "https://www.midjourney.com",
       "desc": "高质量 AI 图像生成平台",
       "category": "ai",
-      "tags": ["AI", "设计"]
+      "tags": [
+        "AI",
+        "设计"
+      ],
+      "detail": "通过 Discord 或 Web 使用的 AI 图像生成服务，以艺术感与细节表现著称，适合概念设计与视觉探索。"
     },
     {
       "id": "notion-ai",
@@ -117,7 +223,12 @@
       "url": "https://www.notion.so",
       "desc": "笔记协作与 AI 写作一体化",
       "category": "ai",
-      "tags": ["AI", "效率", "写作"]
+      "tags": [
+        "AI",
+        "效率",
+        "写作"
+      ],
+      "detail": "集成在 Notion 工作区中的 AI 能力，可辅助写作、总结、翻译与头脑风暴，与笔记和数据库无缝结合。"
     },
     {
       "id": "perplexity",
@@ -125,7 +236,11 @@
       "url": "https://www.perplexity.ai",
       "desc": "AI 搜索引擎，答案附引用来源",
       "category": "ai",
-      "tags": ["AI", "搜索"]
+      "tags": [
+        "AI",
+        "搜索"
+      ],
+      "detail": "AI 驱动的答案引擎，在生成回复的同时标注引用来源，适合需要可验证信息的检索与研究场景。"
     },
     {
       "id": "figma",
@@ -133,7 +248,11 @@
       "url": "https://www.figma.com",
       "desc": "协作式界面设计与原型工具",
       "category": "design",
-      "tags": ["设计", "效率"]
+      "tags": [
+        "设计",
+        "效率"
+      ],
+      "detail": "基于浏览器的协作设计工具，支持界面设计、原型交互与开发者标注，团队可实时共同编辑同一文件。"
     },
     {
       "id": "dribbble",
@@ -141,7 +260,11 @@
       "url": "https://dribbble.com",
       "desc": "全球设计师作品展示社区",
       "category": "design",
-      "tags": ["设计", "社区"]
+      "tags": [
+        "设计",
+        "社区"
+      ],
+      "detail": "设计师作品展示与灵感社区，汇集 UI、插画与品牌设计案例，适合浏览趋势与寻找视觉参考。"
     },
     {
       "id": "behance",
@@ -149,7 +272,11 @@
       "url": "https://www.behance.net",
       "desc": "Adobe 旗下创意作品集平台",
       "category": "design",
-      "tags": ["设计", "社区"]
+      "tags": [
+        "设计",
+        "社区"
+      ],
+      "detail": "Adobe 旗下创意作品集平台，设计师可展示完整项目过程，也是招聘方发现人才的重要渠道。"
     },
     {
       "id": "unsplash",
@@ -157,7 +284,11 @@
       "url": "https://unsplash.com",
       "desc": "免费高质量无版权图库",
       "category": "design",
-      "tags": ["设计", "工具"]
+      "tags": [
+        "设计",
+        "工具"
+      ],
+      "detail": "提供免费高质量摄影图片，采用宽松授权协议，广泛用于网站、演示文稿与商业项目的视觉素材。"
     },
     {
       "id": "material-icons",
@@ -165,7 +296,11 @@
       "url": "https://fonts.google.com/icons",
       "desc": "Google 官方图标字体库",
       "category": "design",
-      "tags": ["设计", "前端"]
+      "tags": [
+        "设计",
+        "前端"
+      ],
+      "detail": "Google Material Design 官方图标库，提供数千个矢量图标，支持多种尺寸与主题样式下载。"
     },
     {
       "id": "coolors",
@@ -173,7 +308,11 @@
       "url": "https://coolors.co",
       "desc": "一键生成配色方案的调色工具",
       "category": "design",
-      "tags": ["设计", "工具"]
+      "tags": [
+        "设计",
+        "工具"
+      ],
+      "detail": "快速生成与调整配色方案的工具，支持从图片取色、导出色板与无障碍对比度检查。"
     },
     {
       "id": "mdn",
@@ -181,8 +320,13 @@
       "url": "https://developer.mozilla.org",
       "desc": "前端开发权威参考文档",
       "category": "docs",
-      "tags": ["前端", "阅读", "代码"],
-      "pinned": true
+      "tags": [
+        "前端",
+        "阅读",
+        "代码"
+      ],
+      "pinned": true,
+      "detail": "Mozilla 维护的 Web 开发权威文档，涵盖 HTML、CSS、JavaScript 及 Web API，示例清晰、更新及时。"
     },
     {
       "id": "vuejs",
@@ -190,7 +334,11 @@
       "url": "https://vuejs.org",
       "desc": "渐进式 JavaScript 框架官方文档",
       "category": "docs",
-      "tags": ["前端", "阅读"]
+      "tags": [
+        "前端",
+        "阅读"
+      ],
+      "detail": "Vue.js 官方文档与指南，介绍组合式 API、响应式原理与生态工具，是学习与实践 Vue 的首选资料。"
     },
     {
       "id": "react",
@@ -198,7 +346,11 @@
       "url": "https://react.dev",
       "desc": "用于构建用户界面的库官方文档",
       "category": "docs",
-      "tags": ["前端", "阅读"]
+      "tags": [
+        "前端",
+        "阅读"
+      ],
+      "detail": "React 官方文档，讲解组件模型、Hooks、服务端渲染与性能优化，配套交互示例便于动手理解。"
     },
     {
       "id": "nodejs",
@@ -206,7 +358,11 @@
       "url": "https://nodejs.org",
       "desc": "Node.js 运行时官方文档",
       "category": "docs",
-      "tags": ["后端", "阅读"]
+      "tags": [
+        "后端",
+        "阅读"
+      ],
+      "detail": "Node.js 运行时官方文档，涵盖模块系统、异步 I/O、内置 API 与最佳实践，是后端 JavaScript 开发基础。"
     },
     {
       "id": "python",
@@ -214,7 +370,12 @@
       "url": "https://docs.python.org",
       "desc": "Python 语言官方文档",
       "category": "docs",
-      "tags": ["后端", "阅读", "学习"]
+      "tags": [
+        "后端",
+        "阅读",
+        "学习"
+      ],
+      "detail": "Python 语言官方文档，包含教程、标准库参考与语言规范，适合从入门到查阅底层细节各阶段使用。"
     },
     {
       "id": "rust",
@@ -222,7 +383,12 @@
       "url": "https://doc.rust-lang.org",
       "desc": "Rust 语言官方参考文档",
       "category": "docs",
-      "tags": ["代码", "阅读", "后端"]
+      "tags": [
+        "代码",
+        "阅读",
+        "后端"
+      ],
+      "detail": "Rust 官方文档与编程语言书，系统讲解所有权、并发与安全抽象，配套 Playground 可在线试运行代码。"
     },
     {
       "id": "vercel",
@@ -230,7 +396,12 @@
       "url": "https://vercel.com",
       "desc": "前端项目一键部署托管平台",
       "category": "dev",
-      "tags": ["前端", "云服务", "工具"]
+      "tags": [
+        "前端",
+        "云服务",
+        "工具"
+      ],
+      "detail": "面向前端与全栈的一键部署平台，深度支持 Next.js，提供边缘函数、预览部署与全球 CDN 加速。"
     },
     {
       "id": "netlify",
@@ -238,7 +409,12 @@
       "url": "https://www.netlify.com",
       "desc": "静态网站托管与 Serverless 平台",
       "category": "dev",
-      "tags": ["前端", "云服务", "工具"]
+      "tags": [
+        "前端",
+        "云服务",
+        "工具"
+      ],
+      "detail": "静态站点与 Jamstack 应用托管服务，内置持续部署、表单处理与 Serverless Functions，配置简单。"
     },
     {
       "id": "hackernews",
@@ -246,7 +422,12 @@
       "url": "https://news.ycombinator.com",
       "desc": "硅谷极客聚集的科技新闻社区",
       "category": "news",
-      "tags": ["资讯", "社区", "阅读"]
+      "tags": [
+        "资讯",
+        "社区",
+        "阅读"
+      ],
+      "detail": "Y Combinator 运营的科技新闻聚合站，以高质量讨论著称，常是早期技术趋势与创业观点的风向标。"
     },
     {
       "id": "36kr",
@@ -254,7 +435,11 @@
       "url": "https://36kr.com",
       "desc": "科技与创投深度资讯媒体",
       "category": "news",
-      "tags": ["资讯", "阅读"]
+      "tags": [
+        "资讯",
+        "阅读"
+      ],
+      "detail": "专注科技与创投的中文媒体，报道创业公司动态、行业分析与商业模式，适合跟踪国内创新生态。"
     },
     {
       "id": "solidot",
@@ -262,7 +447,12 @@
       "url": "https://www.solidot.org",
       "desc": "开源与科技领域的严肃新闻站",
       "category": "news",
-      "tags": ["资讯", "开源", "阅读"]
+      "tags": [
+        "资讯",
+        "开源",
+        "阅读"
+      ],
+      "detail": "面向技术爱好者的开源与科技新闻站，内容偏严肃深度，评论区常有业内从业者参与讨论。"
     },
     {
       "id": "rsshub",
@@ -270,7 +460,12 @@
       "url": "https://rsshub.app",
       "desc": "万物皆可订阅的 RSS 生成服务",
       "category": "news",
-      "tags": ["阅读", "开源", "工具"]
+      "tags": [
+        "阅读",
+        "开源",
+        "工具"
+      ],
+      "detail": "开源 RSS 路由生成器，为众多网站与平台提供订阅源，可配合阅读器实现个性化资讯聚合。"
     },
     {
       "id": "36kr-tech",
@@ -278,7 +473,12 @@
       "url": "https://sspai.com",
       "desc": "数字生活与效率技巧分享社区",
       "category": "news",
-      "tags": ["资讯", "效率", "社区"]
+      "tags": [
+        "资讯",
+        "效率",
+        "社区"
+      ],
+      "detail": "少数派专注数字生活与效率工具，提供深度评测、使用技巧与 Workflow 分享，适合提升日常生产力。"
     },
     {
       "id": "geekpark",
@@ -286,7 +486,11 @@
       "url": "https://www.geekpark.net",
       "desc": "聚焦创新与商业的科技媒体",
       "category": "news",
-      "tags": ["资讯", "阅读"]
+      "tags": [
+        "资讯",
+        "阅读"
+      ],
+      "detail": "极客公园报道科技创新、产品发布与商业洞察，长期关注互联网与硬件领域的变革趋势。"
     },
     {
       "id": "excalidraw",
@@ -294,7 +498,12 @@
       "url": "https://excalidraw.com",
       "desc": "手绘风协作白板与图表工具",
       "category": "tools",
-      "tags": ["效率", "工具", "设计"]
+      "tags": [
+        "效率",
+        "工具",
+        "设计"
+      ],
+      "detail": "开源手绘风格白板工具，支持多人实时协作，适合架构图、头脑风暴与轻量原型草图绘制。"
     },
     {
       "id": "translate",
@@ -302,7 +511,11 @@
       "url": "https://www.deepl.com",
       "desc": "翻译质量出色的在线翻译",
       "category": "tools",
-      "tags": ["效率", "工具"]
+      "tags": [
+        "效率",
+        "工具"
+      ],
+      "detail": "DeepL 以翻译自然度著称，支持多语言互译与文档翻译，在欧美语言对上常优于传统机器翻译。"
     },
     {
       "id": "tiny-png",
@@ -310,7 +523,11 @@
       "url": "https://tinypng.com",
       "desc": "智能压缩 PNG 与 JPEG 图片",
       "category": "tools",
-      "tags": ["设计", "工具"]
+      "tags": [
+        "设计",
+        "工具"
+      ],
+      "detail": "通过智能有损压缩减小 PNG 与 JPEG 体积，在肉眼几乎无差别的前提下显著降低图片加载成本。"
     },
     {
       "id": "remove-bg",
@@ -318,7 +535,12 @@
       "url": "https://www.remove.bg",
       "desc": "AI 一键在线抠图去背景",
       "category": "tools",
-      "tags": ["AI", "工具", "设计"]
+      "tags": [
+        "AI",
+        "工具",
+        "设计"
+      ],
+      "detail": "基于 AI 的自动抠图服务，上传照片即可移除背景，适合电商商品图与证件照快速处理。"
     },
     {
       "id": "cron",
@@ -326,7 +548,11 @@
       "url": "https://crontab.guru",
       "desc": "Cron 表达式可视化生成与解释",
       "category": "tools",
-      "tags": ["代码", "工具"]
+      "tags": [
+        "代码",
+        "工具"
+      ],
+      "detail": "可视化解释 Cron 表达式的在线工具，输入表达式即可看到下次执行时间，降低定时任务配置出错率。"
     },
     {
       "id": "coursera",
@@ -334,7 +560,11 @@
       "url": "https://www.coursera.org",
       "desc": "全球名校在线课程平台",
       "category": "learn",
-      "tags": ["学习", "视频"]
+      "tags": [
+        "学习",
+        "视频"
+      ],
+      "detail": "与全球顶尖大学合作的在线课程平台，提供证书项目与学位课程，涵盖计算机、商业与人文等领域。"
     },
     {
       "id": "khan-academy",
@@ -342,7 +572,11 @@
       "url": "https://www.khanacademy.org",
       "desc": "免费优质的数学与科学课程",
       "category": "learn",
-      "tags": ["学习", "视频"]
+      "tags": [
+        "学习",
+        "视频"
+      ],
+      "detail": "非营利教育平台，提供免费数学、科学与编程课程，以短视频与互动练习帮助循序渐进学习。"
     },
     {
       "id": "freecodecamp",
@@ -350,7 +584,12 @@
       "url": "https://www.freecodecamp.org",
       "desc": "免费学编程的互动练习平台",
       "category": "learn",
-      "tags": ["学习", "代码", "开源"]
+      "tags": [
+        "学习",
+        "代码",
+        "开源"
+      ],
+      "detail": "免费编程学习社区，通过项目驱动课程掌握 Web 开发，完成后可获得认证并参与开源贡献。"
     },
     {
       "id": "leetcode",
@@ -358,7 +597,11 @@
       "url": "https://leetcode.cn",
       "desc": "算法刷题与面试准备平台",
       "category": "learn",
-      "tags": ["学习", "代码"]
+      "tags": [
+        "学习",
+        "代码"
+      ],
+      "detail": "算法与数据结构练习平台，汇集面试高频题目与讨论区题解，是国内开发者备战技术面试的重要工具。"
     },
     {
       "id": "bilibili",
@@ -366,7 +609,12 @@
       "url": "https://www.bilibili.com",
       "desc": "视频社区，海量学习与娱乐内容",
       "category": "learn",
-      "tags": ["视频", "学习", "娱乐"]
+      "tags": [
+        "视频",
+        "学习",
+        "娱乐"
+      ],
+      "detail": "国内大型视频社区，拥有丰富的编程教程、科普内容与 UP 主生态，学习与娱乐场景兼备。"
     },
     {
       "id": "yuque",
@@ -374,7 +622,12 @@
       "url": "https://www.yuque.com",
       "desc": "知识库与文档协作工具",
       "category": "life",
-      "tags": ["写作", "效率", "办公"]
+      "tags": [
+        "写作",
+        "效率",
+        "办公"
+      ],
+      "detail": "阿里旗下的知识库与文档协作产品，支持 Markdown、团队空间与权限管理，适合沉淀项目与团队知识。"
     },
     {
       "id": "feishu",
@@ -382,7 +635,12 @@
       "url": "https://www.feishu.cn",
       "desc": "一站式协作办公与文档平台",
       "category": "life",
-      "tags": ["办公", "效率", "工具"]
+      "tags": [
+        "办公",
+        "效率",
+        "工具"
+      ],
+      "detail": "字节跳动出品的企业协作套件，整合即时通讯、文档、日历与审批，支持多端同步与开放 API。"
     },
     {
       "id": "todoist",
@@ -390,7 +648,11 @@
       "url": "https://todoist.com",
       "desc": "跨平台任务管理与待办清单",
       "category": "life",
-      "tags": ["效率", "工具"]
+      "tags": [
+        "效率",
+        "工具"
+      ],
+      "detail": "跨平台任务管理应用，支持项目分组、优先级、重复提醒与自然语言输入，适合个人与轻量团队使用。"
     },
     {
       "id": "12306",
@@ -398,7 +660,11 @@
       "url": "https://www.12306.cn",
       "desc": "火车票官方购票与余票查询",
       "category": "life",
-      "tags": ["工具", "出行"]
+      "tags": [
+        "工具",
+        "出行"
+      ],
+      "detail": "中国铁路官方购票平台，提供车次查询、余票监控、在线购票与改签退票等出行相关核心服务。"
     },
     {
       "id": "github-zh",
@@ -406,7 +672,12 @@
       "url": "https://github.com",
       "desc": "开源项目讨论的中文协作空间",
       "category": "community",
-      "tags": ["社区", "代码", "开源"]
+      "tags": [
+        "社区",
+        "代码",
+        "开源"
+      ],
+      "detail": "GitHub 是全球开源协作的主阵地，可发现优质项目、参与贡献、托管个人代码并跟踪技术社区动态。"
     },
     {
       "id": "v2ex",
@@ -414,7 +685,12 @@
       "url": "https://www.v2ex.com",
       "desc": "程序员创意与工作交流社区",
       "category": "community",
-      "tags": ["社区", "代码", "资讯"]
+      "tags": [
+        "社区",
+        "代码",
+        "资讯"
+      ],
+      "detail": "创意工作者社区，设有技术、职场、生活等节点，讨论氛围轻松，常出现实用的工具推荐与经验分享。"
     },
     {
       "id": "reddit",
@@ -422,7 +698,12 @@
       "url": "https://www.reddit.com",
       "desc": "全球大型主题讨论社区",
       "category": "community",
-      "tags": ["社区", "资讯", "娱乐"]
+      "tags": [
+        "社区",
+        "资讯",
+        "娱乐"
+      ],
+      "detail": "按主题划分的全球性论坛（Subreddit），涵盖编程、游戏、新闻等无数社区，信息密度高且更新活跃。"
     },
     {
       "id": "zhihu",
@@ -430,7 +711,12 @@
       "url": "https://www.zhihu.com",
       "desc": "高质量问答与知识分享社区",
       "category": "community",
-      "tags": ["社区", "阅读", "资讯"]
+      "tags": [
+        "社区",
+        "阅读",
+        "资讯"
+      ],
+      "detail": "中文互联网知名的问答社区，聚集各领域专业人士，适合获取深度观点、行业解读与经验类内容。"
     },
     {
       "id": "devto",
@@ -438,7 +724,12 @@
       "url": "https://dev.to",
       "desc": "开发者分享与交流的博客社区",
       "category": "community",
-      "tags": ["社区", "代码", "写作"]
+      "tags": [
+        "社区",
+        "代码",
+        "写作"
+      ],
+      "detail": "面向开发者的博客与讨论平台，鼓励分享教程与项目心得，氛围友好，适合建立技术个人品牌。"
     },
     {
       "id": "douban",
@@ -446,7 +737,12 @@
       "url": "https://www.douban.com",
       "desc": "书影音评分与文艺生活社区",
       "category": "media",
-      "tags": ["娱乐", "阅读", "社区"]
+      "tags": [
+        "娱乐",
+        "阅读",
+        "社区"
+      ],
+      "detail": "书影音评分与兴趣小组社区，可记录阅读观影足迹、发现文艺内容并参与同好讨论。"
     },
     {
       "id": "youtube",
@@ -454,7 +750,11 @@
       "url": "https://www.youtube.com",
       "desc": "全球最大视频分享平台",
       "category": "media",
-      "tags": ["视频", "娱乐"]
+      "tags": [
+        "视频",
+        "娱乐"
+      ],
+      "detail": "全球最大的视频平台，拥有教程、评测、直播与娱乐等海量内容，是视觉化学习与资讯获取的重要渠道。"
     },
     {
       "id": "spotify",
@@ -462,7 +762,11 @@
       "url": "https://open.spotify.com",
       "desc": "海量音乐与播客流媒体服务",
       "category": "media",
-      "tags": ["娱乐", "音频"]
+      "tags": [
+        "娱乐",
+        "音频"
+      ],
+      "detail": "主流音乐流媒体服务，提供个性化推荐、歌单、播客与离线下载，曲库覆盖全球多种音乐风格。"
     },
     {
       "id": "netease-music",
@@ -470,7 +774,11 @@
       "url": "https://music.163.com",
       "desc": "热门音乐与歌单社区平台",
       "category": "media",
-      "tags": ["娱乐", "音频"]
+      "tags": [
+        "娱乐",
+        "音频"
+      ],
+      "detail": "国内热门音乐平台，以歌单文化与评论区著称，拥有大量独立音乐与用户生成内容。"
     },
     {
       "id": "mdn-zh",
@@ -478,7 +786,12 @@
       "url": "https://developer.mozilla.org/zh-CN",
       "desc": "Web 开发文档中文版",
       "category": "docs",
-      "tags": ["前端", "阅读", "代码"]
+      "tags": [
+        "前端",
+        "阅读",
+        "代码"
+      ],
+      "detail": "MDN Web 文档中文版，将核心 Web 标准与 API 说明本地化，方便中文开发者快速查阅与上手。"
     },
     {
       "id": "chatgpt-zh",
@@ -486,7 +799,11 @@
       "url": "https://yiyan.baidu.com",
       "desc": "百度知识增强大模型助手",
       "category": "ai",
-      "tags": ["AI", "工具"]
+      "tags": [
+        "AI",
+        "工具"
+      ],
+      "detail": "百度推出的知识增强大模型，支持中文对话、文档理解与多模态能力，适合日常问答与内容创作辅助。"
     },
     {
       "id": "toolfk",
@@ -494,7 +811,11 @@
       "url": "https://www.toolfk.com",
       "desc": "在线工具大全，免安装即用",
       "category": "tools",
-      "tags": ["工具", "效率"]
+      "tags": [
+        "工具",
+        "效率"
+      ],
+      "detail": "聚合数百种在线实用工具，涵盖编码转换、格式处理、计算与生成等场景，无需安装即可即用。"
     },
     {
       "id": "smallpdf",
@@ -502,7 +823,11 @@
       "url": "https://smallpdf.com",
       "desc": "PDF 转换压缩与编辑工具箱",
       "category": "tools",
-      "tags": ["办公", "工具"]
+      "tags": [
+        "办公",
+        "工具"
+      ],
+      "detail": "一站式 PDF 工具箱，支持合并、拆分、压缩、转换与电子签名，界面简洁适合非技术用户快速处理文档。"
     },
     {
       "id": "figma-community",
@@ -510,7 +835,11 @@
       "url": "https://www.canva.com",
       "desc": "海量模板的在线平面设计平台",
       "category": "design",
-      "tags": ["设计", "办公"]
+      "tags": [
+        "设计",
+        "办公"
+      ],
+      "detail": "Canva 提供海量设计模板与拖拽式编辑，适合快速制作海报、社交媒体图与演示材料，降低设计门槛。"
     },
     {
       "id": "telegram",
@@ -518,7 +847,12 @@
       "url": "https://telegram.org",
       "desc": "安全快速的多端即时通讯",
       "category": "life",
-      "tags": ["社交", "效率", "工具"]
+      "tags": [
+        "社交",
+        "效率",
+        "工具"
+      ],
+      "detail": "注重隐私与速度的即时通讯应用，支持大文件传输、频道广播与 Bot 生态，适合跨设备消息同步。"
     }
   ]
 }
