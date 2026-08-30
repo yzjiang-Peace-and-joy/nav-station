@@ -4,12 +4,23 @@ import AppHeader from './components/AppHeader.vue'
 import AppSidebar from './components/AppSidebar.vue'
 import CategorySection from './components/CategorySection.vue'
 import SiteCard from './components/SiteCard.vue'
+import LoginView from './components/LoginView.vue'
 import { useTheme } from './composables/useTheme.js'
 import { usePinned } from './composables/usePinned.js'
 import { useSites } from './composables/useSites.js'
+import { useAuth } from './composables/useAuth.js'
 
 const { theme: themeName, init: initTheme, toggle: toggleTheme } = useTheme()
 const pinned = usePinned()
+const {
+  isAuthenticated,
+  username,
+  otherAccounts,
+  init: initAuth,
+  login,
+  logout,
+  switchAccount
+} = useAuth()
 
 const {
   categories,
@@ -33,16 +44,49 @@ const {
 
 const entered = ref(false)
 const sidebarOpen = ref(false)
+const loginViewRef = ref(null)
 
 onMounted(async () => {
   initTheme()
-  await loadSites()
-  pinned.init(defaultPinnedIds())
+  initAuth()
+  if (isAuthenticated.value) {
+    await initUserData()
+  }
   await nextTick()
   setTimeout(() => {
     entered.value = true
   }, 600)
 })
+
+async function initUserData() {
+  await loadSites(username.value)
+  pinned.init(username.value, defaultPinnedIds())
+  resetFilters()
+}
+
+async function handleLogin({ username: name, password }) {
+  const result = login(name, password)
+  if (!result.ok) {
+    loginViewRef.value?.setError(result.message)
+    return
+  }
+  await initUserData()
+}
+
+function handleLogout() {
+  logout()
+  resetFilters()
+}
+
+async function handleSwitchAccount({ username: name, password, onError, onSuccess }) {
+  const result = switchAccount(name, password)
+  if (!result.ok) {
+    onError?.(result.message)
+    return
+  }
+  await initUserData()
+  onSuccess?.()
+}
 
 function togglePin(id) {
   pinned.toggle(id)
@@ -58,13 +102,25 @@ function closeSidebar() {
 </script>
 
 <template>
-  <div class="app" :class="{ 'anim-enter': !entered }">
+  <LoginView
+    v-if="!isAuthenticated"
+    ref="loginViewRef"
+    :theme="themeName"
+    @login="handleLogin"
+    @toggle-theme="toggleTheme"
+  />
+
+  <div v-else class="app" :class="{ 'anim-enter': !entered }">
     <AppHeader
       :query="searchQuery"
       :theme="themeName"
+      :username="username"
+      :other-accounts="otherAccounts"
       @update:query="setQuery"
       @toggle-theme="toggleTheme"
       @toggle-menu="toggleSidebar"
+      @logout="handleLogout"
+      @switch-account="handleSwitchAccount"
     />
 
     <div class="app-body">
@@ -144,9 +200,15 @@ function closeSidebar() {
           <p>
             <template v-if="searchQuery">没有找到与「{{ searchQuery }}」相关的网站</template>
             <template v-else-if="activeTag">没有找到标签「{{ activeTag }}」下的网站</template>
+            <template v-else-if="username === 'test'">暂无站点，请联系管理员添加</template>
             <template v-else>没有找到匹配的网站</template>
           </p>
-          <button type="button" class="empty-clear-btn" @click="resetFilters">
+          <button
+            v-if="searchQuery || activeTag"
+            type="button"
+            class="empty-clear-btn"
+            @click="resetFilters"
+          >
             清除搜索
           </button>
         </div>

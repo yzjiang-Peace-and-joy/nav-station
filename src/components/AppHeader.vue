@@ -1,12 +1,15 @@
 <script setup>
 import { computed } from 'vue'
+import UserMenu from './UserMenu.vue'
 
 const props = defineProps({
   query: { type: String, default: '' },
-  theme: { type: String, default: 'light' }
+  theme: { type: String, default: 'light' },
+  username: { type: String, default: '' },
+  otherAccounts: { type: Array, default: () => [] }
 })
 
-const emit = defineEmits(['update:query', 'toggle-theme', 'toggle-menu'])
+const emit = defineEmits(['update:query', 'toggle-theme', 'toggle-menu', 'logout', 'switch-account'])
 
 const themeLabel = computed(() => (props.theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'))
 
@@ -54,6 +57,13 @@ function onInput(event) {
         </div>
       </div>
       <div class="header-actions">
+        <UserMenu
+          v-if="username"
+          :username="username"
+          :other-accounts="otherAccounts"
+          @logout="emit('logout')"
+          @switch-account="emit('switch-account', $event)"
+        />
         <button
           type="button"
           class="theme-toggle"

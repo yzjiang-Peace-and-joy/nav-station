@@ -14,9 +14,22 @@ export function useSites({ isPinned }) {
   const activeCategory = ref('all')
   let debounceTimer = null
 
-  async function load() {
+  const SITE_FILES = {
+    yzjiang: () => import('../data/sites.json'),
+    test: () => import('../data/sites-test.json')
+  }
+
+  async function load(userId) {
+    loadError.value = false
+    categories.value = []
+    sites.value = []
+    tags.value = []
+    resetFilters()
+
     try {
-      const module = await import('../data/sites.json')
+      const loader = SITE_FILES[userId]
+      if (!loader) throw new Error(`未知用户：${userId}`)
+      const module = await loader()
       validateAndNormalize(module.default)
     } catch (err) {
       console.error('[nav_station] 数据加载失败：', err)

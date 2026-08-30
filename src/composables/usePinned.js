@@ -1,12 +1,17 @@
 import { ref, readonly } from 'vue'
 
-const PINNED_KEY = 'nav_pinned'
+const PINNED_KEY_PREFIX = 'nav_pinned_'
 
 const pinnedIds = ref(new Set())
+let currentUserId = null
 
-function load() {
+function storageKey(userId) {
+  return `${PINNED_KEY_PREFIX}${userId}`
+}
+
+function load(userId) {
   try {
-    const raw = localStorage.getItem(PINNED_KEY)
+    const raw = localStorage.getItem(storageKey(userId))
     if (raw === null) return null
     const arr = JSON.parse(raw)
     if (!Array.isArray(arr)) return new Set()
@@ -16,20 +21,21 @@ function load() {
   }
 }
 
-function save(set) {
+function save(userId, set) {
   try {
-    localStorage.setItem(PINNED_KEY, JSON.stringify([...set]))
+    localStorage.setItem(storageKey(userId), JSON.stringify([...set]))
   } catch {
     /* localStorage unavailable */
   }
 }
 
 export function usePinned() {
-  function init(defaultIds = []) {
-    const stored = load()
+  function init(userId, defaultIds = []) {
+    currentUserId = userId
+    const stored = load(userId)
     if (stored === null) {
       pinnedIds.value = new Set(defaultIds)
-      save(pinnedIds.value)
+      save(userId, pinnedIds.value)
     } else {
       pinnedIds.value = stored
     }
@@ -47,7 +53,7 @@ export function usePinned() {
       next.add(id)
     }
     pinnedIds.value = next
-    save(next)
+    if (currentUserId) save(currentUserId, next)
   }
 
   return { pinnedIds: readonly(pinnedIds), isPinned, toggle, init }
