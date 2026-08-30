@@ -6,7 +6,7 @@ const props = defineProps({
   theme: { type: String, default: 'light' }
 })
 
-const emit = defineEmits(['update:query', 'toggle-theme'])
+const emit = defineEmits(['update:query', 'toggle-theme', 'toggle-menu'])
 
 const themeLabel = computed(() => (props.theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'))
 
@@ -18,7 +18,16 @@ function onInput(event) {
 <template>
   <header class="app-header">
     <div class="app-header-inner">
-      <h1 class="brand">导航站</h1>
+      <button
+        type="button"
+        class="menu-toggle"
+        aria-label="打开分类导航"
+        @click="emit('toggle-menu')"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
       <div class="header-search">
         <div class="search-box">
           <svg

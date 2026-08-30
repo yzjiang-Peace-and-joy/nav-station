@@ -11,6 +11,7 @@ export function useSites({ isPinned }) {
   const searchQuery = ref('')
   const deferredQuery = ref('')
   const activeTag = ref(null)
+  const activeCategory = ref('all')
   let debounceTimer = null
 
   async function load() {
@@ -86,11 +87,16 @@ export function useSites({ isPinned }) {
     activeTag.value = activeTag.value === tag ? null : tag
   }
 
+  function setCategory(id) {
+    activeCategory.value = id
+  }
+
   function resetFilters() {
     clearTimeout(debounceTimer)
     searchQuery.value = ''
     deferredQuery.value = ''
     activeTag.value = null
+    activeCategory.value = 'all'
   }
 
   function isPinnedSite(site) {
@@ -118,14 +124,34 @@ export function useSites({ isPinned }) {
 
   const visibleSites = computed(() => filteredSites.value.filter((s) => !isPinnedSite(s)))
 
-  const groupedSites = computed(() => {
-    return categories.value
+  const categoryCounts = computed(() => {
+    const counts = {}
+    for (const cat of categories.value) {
+      counts[cat.id] = visibleSites.value.filter((s) => s.category === cat.id).length
+    }
+    return counts
+  })
+
+  const displayGroups = computed(() => {
+    const groups = categories.value
       .map((cat) => ({
         ...cat,
         sites: visibleSites.value.filter((s) => s.category === cat.id)
       }))
       .filter((g) => g.sites.length > 0)
+
+    if (activeCategory.value === 'all') return groups
+    if (activeCategory.value === 'pinned') return []
+    return groups.filter((g) => g.id === activeCategory.value)
   })
+
+  const showPinnedView = computed(
+    () => activeCategory.value === 'pinned' && pinnedSites.value.length > 0
+  )
+
+  const hasResults = computed(
+    () => showPinnedView.value || displayGroups.value.length > 0
+  )
 
   return {
     categories,
@@ -134,12 +160,17 @@ export function useSites({ isPinned }) {
     loadError,
     searchQuery,
     activeTag,
+    activeCategory,
     filteredSites,
     pinnedSites,
-    groupedSites,
+    categoryCounts,
+    displayGroups,
+    showPinnedView,
+    hasResults,
     load,
     setQuery,
     setTag,
+    setCategory,
     resetFilters,
     defaultPinnedIds
   }
