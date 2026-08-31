@@ -48,7 +48,7 @@ const loginViewRef = ref(null)
 
 onMounted(async () => {
   initTheme()
-  initAuth()
+  await initAuth()
   if (isAuthenticated.value) {
     await initUserData()
   }
@@ -59,13 +59,13 @@ onMounted(async () => {
 })
 
 async function initUserData() {
-  await loadSites(username.value)
-  pinned.init(username.value, defaultPinnedIds())
+  await loadSites()
+  await pinned.init(username.value, defaultPinnedIds())
   resetFilters()
 }
 
 async function handleLogin({ username: name, password }) {
-  const result = login(name, password)
+  const result = await login(name, password)
   if (!result.ok) {
     loginViewRef.value?.setError(result.message)
     return
@@ -79,7 +79,7 @@ function handleLogout() {
 }
 
 async function handleSwitchAccount({ username: name, password, onError, onSuccess }) {
-  const result = switchAccount(name, password)
+  const result = await switchAccount(name, password)
   if (!result.ok) {
     onError?.(result.message)
     return

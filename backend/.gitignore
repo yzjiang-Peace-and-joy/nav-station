@@ -1,0 +1,12 @@
+# 虚拟环境
+.venv/
+venv/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+
+# 本地数据库
+*.db
+*.sqlite
+*.sqlite3

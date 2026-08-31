@@ -10,8 +10,8 @@
 | 构建工具 | Vite | 开发启动快、静态产物简洁 |
 | 状态管理 | 不引入 Pinia/Vuex | 单页场景用 composables 足够，保持轻量 |
 | 路由 | 不引入 vue-router | 单页展示，无多页面需求 |
-| 数据源 | `src/data/sites.json` | 静态 JSON，运行时加载 |
-| 持久化 | localStorage | 仅存用户偏好（主题、置顶），不存业务数据 |
+| 数据源 | FastAPI + SQLite | 业务数据由后端 API 提供，SQLite 持久化 |
+| 持久化 | SQLite + localStorage | 用户、站点、分类、标签、置顶存 SQLite；仅主题存 localStorage |
 | 样式方案 | 全局 CSS + CSS 变量 | 不引入 UI 框架、不引入 CSS 预处理器 |
 
 **核心原则：**
@@ -31,8 +31,10 @@ nav_station/
 └── src/
     ├── main.js                 # createApp 挂载，引入全局样式
     ├── App.vue                 # 布局骨架（唯一根组件，持有页面级状态）
+    ├── api/
+    │   └── client.js           # 带 JWT 的 Fetch API 客户端
     ├── data/
-    │   └── sites.json          # 伪数据：categories / tags / sites
+    │   └── sites.json          # 后端 seed 输入数据
     ├── components/
     │   ├── AppHeader.vue       # 站名 + 搜索框 + 主题切换（页面顶部）
     │   ├── TagFilter.vue       # 标签筛选 chips 栏

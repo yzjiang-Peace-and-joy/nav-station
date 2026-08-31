@@ -1,94 +1,52 @@
 import { ref, computed } from 'vue'
+import { apiFetch, clearToken, getToken, setToken } from '../api/client.js'
 
 const AUTH_KEY = 'nav_user'
-
-const USERS = {
-  yzjiang: {
-    password: '123456',
-    sitesFile: 'yzjiang'
-  },
-  test: {
-    password: '123456',
-    sitesFile: 'test'
-  }
-}
-
 const currentUser = ref(null)
+const accounts = ref([])
 
 export function useAuth() {
   const isAuthenticated = computed(() => currentUser.value !== null)
   const username = computed(() => currentUser.value)
-  const otherAccounts = computed(() =>
-    Object.keys(USERS).filter((name) => name !== currentUser.value)
-  )
+  const otherAccounts = computed(() => accounts.value.filter((name) => name !== currentUser.value))
 
-  function init() {
-    const stored = readStored()
-    if (stored && USERS[stored]) {
-      currentUser.value = stored
-    }
+  async function init() {
+    if (!getToken()) return
+    try {
+      const user = await apiFetch('/auth/me')
+      currentUser.value = user.username
+      localStorage.setItem(AUTH_KEY, user.username)
+      await loadAccounts()
+    } catch { logout() }
   }
 
-  function login(name, password) {
-    const user = USERS[name]
-    if (!user || user.password !== password) {
-      return { ok: false, message: '用户名或密码错误' }
-    }
-    currentUser.value = name
-    persist(name)
-    return { ok: true }
+  async function loadAccounts() {
+    const data = await apiFetch('/auth/accounts')
+    accounts.value = data.map((item) => item.username)
+  }
+
+  async function login(name, password) {
+    try {
+      const data = await apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ username: name, password }) })
+      setToken(data.access_token)
+      currentUser.value = data.username
+      localStorage.setItem(AUTH_KEY, data.username)
+      await loadAccounts()
+      return { ok: true }
+    } catch (err) { return { ok: false, message: err.message } }
   }
 
   function logout() {
     currentUser.value = null
-    clearStored()
+    accounts.value = []
+    clearToken()
+    localStorage.removeItem(AUTH_KEY)
   }
 
   function switchAccount(name, password) {
-    if (name === currentUser.value) return { ok: true }
+    if (name === currentUser.value) return Promise.resolve({ ok: true })
     return login(name, password)
   }
 
-  function getSitesFile() {
-    if (!currentUser.value) return null
-    return USERS[currentUser.value].sitesFile
-  }
-
-  return {
-    currentUser,
-    username,
-    isAuthenticated,
-    otherAccounts,
-    init,
-    login,
-    logout,
-    switchAccount,
-    getSitesFile
-  }
-}
-
-function readStored() {
-  try {
-    const v = localStorage.getItem(AUTH_KEY)
-    if (v && typeof v === 'string') return v
-  } catch {
-    /* ignore */
-  }
-  return null
-}
-
-function persist(name) {
-  try {
-    localStorage.setItem(AUTH_KEY, name)
-  } catch {
-    /* ignore */
-  }
-}
-
-function clearStored() {
-  try {
-    localStorage.removeItem(AUTH_KEY)
-  } catch {
-    /* ignore */
-  }
+  return { currentUser, username, isAuthenticated, otherAccounts, init, login, logout, switchAccount }
 }
