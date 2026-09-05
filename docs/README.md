@@ -9,6 +9,7 @@
 
 ## 专项文档
 
+- [API 代理故障复盘](API_PROXY_TROUBLESHOOTING.md)：nav-api 连接关闭、后端端口、nginx 反代与同源 API 修复经验
 - [视觉规范](../VISUAL.md)
 - [验收标准](../ACCEPTANCE.md)
 - [后端 README](../backend/README.md)
