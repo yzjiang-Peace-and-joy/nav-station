@@ -1,0 +1,15 @@
+---
+description: Frontend conventions for Vue source files
+globs: src/**
+alwaysApply: false
+---
+
+# Frontend Conventions
+
+- Use Vue 3 Composition API and `<script setup>`.
+- Keep page-level state in `src/App.vue`; put reusable state and API behavior in composables.
+- Components receive props and emit events. They must not call `apiFetch()` directly or import site JSON.
+- Use `PascalCase.vue` for components and `useX.js` for composables.
+- Route all API calls through `src/api/client.js`; preserve automatic JWT handling.
+- Business data belongs to the backend. Only documented auth and theme keys may use localStorage; do not restore `nav_pinned`.
+- Do not add router, Pinia/Vuex, axios, UI frameworks, CSS preprocessors, or TypeScript without explicit approval.

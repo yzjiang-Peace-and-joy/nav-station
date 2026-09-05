@@ -22,6 +22,10 @@ logs/
 *.log
 npm-debug.log*
 
-# Cursor / 计划文件（保留计划但排除临时文件）
-.cursor/
+# Cursor：忽略本地状态，保留可共享的 rules / skills
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
 *.plan.md

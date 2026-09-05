@@ -1,0 +1,18 @@
+---
+description: Keep architecture documentation synchronized with structural changes
+alwaysApply: true
+---
+
+# Architecture Sync
+
+After any structural change, use `.cursor/skills/update-architecture-docs/` and update the affected docs.
+
+Trigger this for:
+- Adding, removing, or renaming frontend components or composables
+- Adding, removing, or renaming backend routers or models
+- Changing API paths, request/response shapes, or authentication
+- Changing localStorage keys or persistence ownership
+- Adding dependencies that affect architecture
+- Changing database configuration, migrations, seed behavior, or deployment
+
+Do not create a changelog entry for purely visual, copy, or non-structural bug fixes.

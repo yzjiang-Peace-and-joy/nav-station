@@ -1,0 +1,11 @@
+---
+description: Nav Station project context and documentation entry point
+alwaysApply: true
+---
+
+# Project Context
+
+- Nav Station is a Vue 3 SPA plus FastAPI API with JWT multi-user authentication and SQLite persistence.
+- Before changing code, read `AGENTS.md` and the relevant document under `docs/architecture/`.
+- Preserve the frontend/backend boundary: frontend components consume composables; backend owns persistent business data.
+- Do not edit the plan file as part of implementation.

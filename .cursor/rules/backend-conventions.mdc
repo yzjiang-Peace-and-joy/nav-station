@@ -1,0 +1,15 @@
+---
+description: Backend conventions for FastAPI source files
+globs: backend/**
+alwaysApply: false
+---
+
+# Backend Conventions
+
+- Keep the FastAPI router pattern and reuse `get_db` plus `current_user` dependencies.
+- Every user-owned query and mutation must be scoped by the authenticated user's `user_id`.
+- Keep API paths under `/api`; update overview and frontend contracts when they change.
+- Preserve thin routers unless a service layer is an explicit architecture decision.
+- Store business data in SQLite through SQLAlchemy; never move it into browser localStorage.
+- Treat JWT secret, database URL, expiry, and CORS origins as environment-configurable settings.
+- Update Alembic/seed documentation when models or initialization behavior changes.
