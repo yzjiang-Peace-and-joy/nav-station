@@ -1,0 +1,16 @@
+[Unit]
+Description=Nav Station FastAPI service
+After=network.target
+
+[Service]
+Type=simple
+User=yzjiang_root
+Group=yzj_group
+WorkingDirectory=/apps/nav_station/backend
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/apps/nav_station/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 9966
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
