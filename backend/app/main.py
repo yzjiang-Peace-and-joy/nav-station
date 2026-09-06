@@ -13,6 +13,7 @@ app.include_router(pins.router)
 app.include_router(plaza.router)
 
 @app.get("/health")
+@app.get("/api/health", include_in_schema=False)
 def health(): return {"status": "ok"}
 
 if __name__ == "__main__":

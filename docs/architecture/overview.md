@@ -38,7 +38,7 @@ sequenceDiagram
 
 | 方法 | 路径 | 数据归属 | 说明 |
 |---|---|---|---|
-| `GET` | `/health` | 全局 | 健康检查 |
+| `GET` | `/health`、`/api/health` | 全局 | 健康检查；同源部署检查使用 `/api/health` |
 | `POST` | `/api/auth/login` | 登录用户 | 签发 JWT |
 | `GET` | `/api/auth/me` | 当前用户 | 验证 token |
 | `GET` | `/api/auth/accounts` | 当前用户 | 账户切换列表 |
@@ -50,6 +50,7 @@ sequenceDiagram
 | `GET` | `/api/plaza` | 全局广场 | 列表与筛选 |
 | `GET` | `/api/plaza/meta` | 全局广场 | 分类与标签元数据 |
 | `GET` | `/api/plaza/{slug}` | 全局广场 | 详情 |
+| `POST` | `/api/plaza/ai-suggest` | 当前用户 | 根据网址调用 Agnes 生成待审阅字段 |
 | `POST` | `/api/plaza` | 全局广场 | 创建 |
 | `PUT` | `/api/plaza/{slug}` | 全局广场 | wiki 更新 |
 | `POST` | `/api/plaza/{slug}/archive` | 全局广场 | 软下架 |

@@ -6,7 +6,8 @@
 |------|------|------|
 | 前端 SPA | `https://nav.5ai.icu` | Nginx 提供 `dist/` 静态资源 |
 | 生产 API（推荐） | `https://nav.5ai.icu/api/...` | 同源反代到本机 FastAPI `127.0.0.1:9966` |
-| 独立 API 域名 | `https://nav-api.5ai.icu` | 同样反代到 9966；**浏览器侧曾出现 `ERR_CONNECTION_RESET`，前端默认不使用** |
+| Agnes AI 上游 | `https://api.agnes-ai.cn/v1` | 国内站 Agnes 2.5 Flash；国内站 Key 必须使用国内站 Base URL |
+| 独立 API 域名 | `https://nav-api.5ai.icu` | 备用 API 域名；浏览器侧不作为默认入口 |
 | 本机 API | `http://127.0.0.1:9966` | uvicorn / `python run.py` |
 
 前端通过 [`src/api/client.js`](../src/api/client.js) 发起请求：
@@ -33,7 +34,8 @@ Authorization: Bearer <access_token>
 
 | 方法 | 路径 | 认证 | 说明 |
 |------|------|------|------|
-| `GET` | `/health` | 否 | `{"status":"ok"}`（注意：不在 `/api` 前缀下） |
+| `GET` | `/health` | 否 | `{"status":"ok"}`；直连 FastAPI 时使用 |
+| `GET` | `/api/health` | 否 | `{"status":"ok"}`；通过 Nginx/Vite 同源代理时使用 |
 
 ### 认证 `/api/auth`
 
@@ -67,6 +69,7 @@ Authorization: Bearer <access_token>
 | `GET` | `/api/plaza` | 是 | 列表；query: `q`、`category`、`tag`、`include_archived` |
 | `GET` | `/api/plaza/meta` | 是 | `{categories,tags}` |
 | `GET` | `/api/plaza/{slug}` | 是 | 详情 |
+| `POST` | `/api/plaza/ai-suggest` | 是 | body: `{url}`；调用 Agnes 返回待审阅字段 `{name,url,desc,detail,category,tags}` |
 | `POST` | `/api/plaza` | 是 | 创建；body: `{name,url,desc?,detail?,category?,tags?}` |
 | `PUT` | `/api/plaza/{slug}` | 是 | wiki 全量更新（字段同创建） |
 | `POST` | `/api/plaza/{slug}/archive` | 是 | 软下架 |

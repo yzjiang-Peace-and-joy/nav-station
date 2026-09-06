@@ -18,7 +18,7 @@
 ## 关键路径
 
 - 前端入口：`src/App.vue`
-- API 客户端：`src/api/client.js`
+- API 客户端：`src/api/client.js`；AI 字段建议（mock）：`src/api/aiSiteSuggest.js`
 - 前端逻辑：`src/composables/`
 - 后端入口：`backend/app/main.py`
 - 路由：`backend/app/routers/`

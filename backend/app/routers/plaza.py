@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from ..database import get_db
 from ..models import Category, PlazaCategory, PlazaSite, PlazaTag, Site, Tag, User
+from ..services.ai_suggest import suggest_site
 from .auth import current_user
 
 router = APIRouter(prefix="/api/plaza", tags=["plaza"])
@@ -252,6 +253,21 @@ def list_plaza(
         "tags": [t.name for t in tags],
         "sites": [serialize_plaza_site(s, added=s.id in added) for s in sites],
     }
+
+
+class AiSuggestPayload(BaseModel):
+    url: str = Field(min_length=1, max_length=1000)
+
+
+@router.post("/ai-suggest")
+def ai_suggest(
+    payload: AiSuggestPayload,
+    user: User = Depends(current_user),
+    db: Session = Depends(get_db),
+):
+    categories = db.scalars(select(PlazaCategory.name).order_by(PlazaCategory.sort_order, PlazaCategory.id)).all()
+    tags = db.scalars(select(PlazaTag.name).order_by(PlazaTag.name)).all()
+    return suggest_site(payload.url, list(categories), list(tags))
 
 
 @router.post("")

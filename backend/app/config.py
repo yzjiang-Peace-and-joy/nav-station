@@ -6,6 +6,9 @@ class Settings(BaseSettings):
     jwt_secret: str = "change-this-secret-in-production"
     jwt_expire_minutes: int = 60 * 24 * 7
     cors_origins: str = "https://nav.5ai.icu,http://localhost:5173,http://127.0.0.1:5173"
+    agnes_api_key: str = ""
+    agnes_base_url: str = "https://api.agnes-ai.cn/v1"
+    agnes_model: str = "agnes-2.5-flash"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

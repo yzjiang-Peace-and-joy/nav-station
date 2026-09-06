@@ -2,6 +2,18 @@
 
 记录架构级决策与边界变化，不替代 Git history。
 
+## 2026-09-06 — 广场提交接入 Agnes AI 解析
+
+- **原因：** 将广场「只填网址 → AI 补全 → 用户审阅」流程从前端 mock 替换为真实后端服务，同时避免 API Key 暴露到浏览器。
+- **变更：** 新增 `backend/app/services/ai_suggest.py` 与需登录的 `POST /api/plaza/ai-suggest`；服务端抓取页面摘要并调用 `agnes-2.5-flash`，前端 `aiSiteSuggest.js` 经 `apiFetch` 请求；新增 `backend/.env.example` 与 Agnes 配置项。
+- **影响文件：** `backend/app/{config.py,services/ai_suggest.py,routers/plaza.py}`、`backend/requirements.txt`、`src/api/aiSiteSuggest.js`、`docs/architecture/{overview,backend,frontend,CHANGELOG}.md`、`docs/API.md`
+
+## 2026-09-06 — 广场提交 Mock AI 补全 UI
+
+- **原因：** 广场提交字段过多，需先打通「只填网址 → AI 补全 → 用户审阅」流程，真实模型与 API Key 稍后接入。
+- **变更：** 新增 `src/api/aiSiteSuggest.js`（`suggestSiteFromUrl` mock 契约）；`PlazaSiteForm` create 改为 url → review 两步，edit 不变；提交仍走现有 `usePlaza.create`。
+- **影响文件：** `src/api/aiSiteSuggest.js`、`src/components/PlazaSiteForm.vue`、`docs/architecture/{frontend,CHANGELOG}.md`
+
 ## 2026-09-06 — 生产稳定性：systemd + 关闭 HTTP/2
 
 - **原因：** 浏览器偶发 `ERR_CONNECTION_CLOSED`（Network 无状态码、0 B，nginx access 无记录），属 TLS/连接层中断；叠加后端曾用 `python run.py` 裸跑，重启窗口会出现旧路由 404。Nginx 1.18 在同一 `:443` 上任一 `listen ... http2` 会使全部站点协商 HTTP/2。

@@ -14,7 +14,9 @@
 src/
 ├── App.vue                 # 页面布局、认证切换、mine/plaza 视图状态
 ├── main.js                 # Vue 挂载与全局样式
-├── api/client.js           # /api Fetch 客户端与 JWT
+├── api/
+│   ├── client.js           # /api Fetch 客户端与 JWT
+│   └── aiSiteSuggest.js    # 从 URL 请求后端生成站点字段
 ├── data/sites.json         # seed 输入（写入广场）
 ├── data/sites-test.json    # 历史测试数据；当前 seed 不再灌个人目录
 ├── components/
@@ -23,7 +25,7 @@ src/
 │   ├── CategorySection.vue
 │   ├── LoginView.vue
 │   ├── PlazaSiteCard.vue   # 广场卡片：添加 / 编辑 / 下架恢复
-│   ├── PlazaSiteForm.vue   # 广场创建与编辑弹层
+│   ├── PlazaSiteForm.vue   # 广场创建（URL→审阅）与编辑弹层
 │   ├── SiteCard.vue        # 个人站点卡片；可同步广场来源
 │   ├── TagFilter.vue
 │   └── UserMenu.vue
@@ -72,7 +74,7 @@ src/
 | `CategorySection` | `title`、`sites` | `leading` slot 与默认 slot |
 | `SiteCard` | `site`、`isPinned`、`index`、`syncing` | `toggle-pin`、`sync-from-plaza` |
 | `PlazaSiteCard` | `site`、`index`、`busy` | `add`、`edit`、`archive`、`restore` |
-| `PlazaSiteForm` | `open`、`mode`、`site`、`categories`、`busy` | `close`、`submit`；`setError` |
+| `PlazaSiteForm` | `open`、`mode`、`site`、`categories`、`busy`；create 为两步（仅网址 → 审阅全字段），经 `aiSiteSuggest.suggestSiteFromUrl` 预填；edit 仍为全字段 | `close`、`submit`；`setError` |
 | `TagFilter` | `tags`、`activeTag` | `update:activeTag` |
 | `UserMenu` | 当前用户、其他账户 | 登出、切换账户 |
 
@@ -91,6 +93,8 @@ src/
 所有请求经 `apiFetch()` 发出。默认基址为空串，最终 URL 为同源 `/api{path}`（生产即 `https://nav.5ai.icu/api...`）；可用 `VITE_API_BASE_URL` 覆盖。请求自动设置 JSON 头与 `Authorization: Bearer`。401 会清理认证缓存。完整路由表见 [API.md](../API.md)。
 
 `GET /api/nav` 站点对象含可选 `source_plaza_id`。广场相关接口由 `usePlaza` / `useSites.syncFromPlaza` 调用。
+
+`api/aiSiteSuggest.js` 导出 `suggestSiteFromUrl(url)`，经 `apiFetch('/plaza/ai-suggest')` 调用后端 Agnes 解析服务，返回与广场创建字段对齐的 `{ name, url, desc, detail, category, tags }`。API Key 仅存后端 `.env`，前端不接触模型凭据。
 
 生产不要默认把 API 指到 `nav-api.5ai.icu`：浏览器侧易出现 `ERR_CONNECTION_RESET`（见故障复盘文档）。
 

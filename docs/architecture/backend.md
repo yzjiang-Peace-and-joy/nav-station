@@ -4,7 +4,7 @@
 
 后端是 FastAPI + SQLAlchemy 2 + SQLite，使用 Pydantic Settings 配置，JWT（`python-jose`）认证，bcrypt 密码哈希。入口为 `backend/app/main.py`；`backend/run.py` 与 `backend/run.sh` 用于本地启动（默认 `0.0.0.0:9966`）。生产用 systemd 单元 `backend/nav-station-api.service`（服务名 `nav-station-api`）托管 uvicorn，监听 `127.0.0.1:9966`，由 Nginx 同源反代。
 
-路由采用 thin router 模式：认证、导航、置顶与广场业务逻辑直接位于 `app/routers/`，当前没有独立 service 层。
+路由采用 thin router 模式：认证、导航、置顶与广场业务逻辑位于 `app/routers/`；Agnes AI 解析与目标页面摘要抓取位于 `app/services/ai_suggest.py`。
 
 ## 2. 目录
 
@@ -25,6 +25,7 @@ backend/
     ├── seed.py
     ├── migrate_to_plaza.py
     ├── models/entities.py
+    ├── services/ai_suggest.py
     └── routers/{auth,nav,pins,plaza}.py
 ```
 
@@ -67,7 +68,7 @@ erDiagram
 
 | 方法 | 路径 | 认证 | 用途 |
 |---|---|---|---|
-| `GET` | `/health` | 否 | 返回 `{"status":"ok"}` |
+| `GET` | `/health`、`/api/health` | 否 | 返回 `{"status":"ok"}`；后者用于 Nginx/Vite 同源代理检查 |
 | `POST` | `/api/auth/login` | 否 | 用户名密码登录，返回 `access_token`、`token_type`、`username` |
 | `GET` | `/api/auth/me` | 是 | 返回当前用户名 |
 | `GET` | `/api/auth/accounts` | 是 | 返回其他账户用户名 |
@@ -79,6 +80,7 @@ erDiagram
 | `GET` | `/api/plaza` | 是 | 广场列表；查询参数 `q` / `category` / `tag` / `include_archived` |
 | `GET` | `/api/plaza/meta` | 是 | 仅返回全局 categories、tags |
 | `GET` | `/api/plaza/{slug}` | 是 | 广场站点详情 |
+| `POST` | `/api/plaza/ai-suggest` | 是 | body `{url}`；调用 Agnes 生成待审阅的站点字段 |
 | `POST` | `/api/plaza` | 是 | 创建广场站点；分类/标签随站点 upsert |
 | `PUT` | `/api/plaza/{slug}` | 是 | wiki 式全量更新 |
 | `POST` | `/api/plaza/{slug}/archive` | 是 | 软下架 |
@@ -101,6 +103,9 @@ erDiagram
 | `JWT_SECRET` | `change-this-secret-in-production` | JWT 签名密钥，生产必须覆盖 |
 | `JWT_EXPIRE_MINUTES` | `10080` | token 有效期 |
 | `CORS_ORIGINS` | 生产域名与本地开发地址 | 逗号分隔的允许来源 |
+| `AGNES_API_KEY` | 空 | Agnes API Key，仅存后端 `.env` |
+| `AGNES_BASE_URL` | `https://api.agnes-ai.cn/v1` | Agnes 国内站 OpenAI 兼容接口基址；国内站 Key 必须使用国内站地址 |
+| `AGNES_MODEL` | `agnes-2.5-flash` | 解析使用的模型 |
 
 ## 7. Seed 与数据库初始化
 
