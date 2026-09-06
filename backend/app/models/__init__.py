@@ -1,3 +1,25 @@
-from .entities import Category, PinnedSite, Site, Tag, User, site_tags
+from .entities import (
+    Category,
+    PinnedSite,
+    PlazaCategory,
+    PlazaSite,
+    PlazaTag,
+    Site,
+    Tag,
+    User,
+    plaza_site_tags,
+    site_tags,
+)
 
-__all__ = ["Category", "PinnedSite", "Site", "Tag", "User", "site_tags"]
+__all__ = [
+    "Category",
+    "PinnedSite",
+    "PlazaCategory",
+    "PlazaSite",
+    "PlazaTag",
+    "Site",
+    "Tag",
+    "User",
+    "plaza_site_tags",
+    "site_tags",
+]

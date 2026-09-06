@@ -4,10 +4,11 @@ import { ref, computed } from 'vue'
 const props = defineProps({
   site: { type: Object, required: true },
   isPinned: { type: Boolean, default: false },
-  index: { type: Number, default: 0 }
+  index: { type: Number, default: 0 },
+  syncing: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['toggle-pin'])
+const emit = defineEmits(['toggle-pin', 'sync-from-plaza'])
 
 const faviconError = ref(false)
 
@@ -30,11 +31,16 @@ const fallbackClass = computed(() => {
 })
 
 const nameChar = computed(() => (props.site.name || '?').charAt(0).toUpperCase())
-
 const staggerStyle = computed(() => ({ '--stagger-index': props.index }))
+const canSync = computed(() => Boolean(props.site.source_plaza_id))
 
 function onTogglePin() {
   emit('toggle-pin', props.site.id)
+}
+
+function onSync() {
+  if (!canSync.value || props.syncing) return
+  emit('sync-from-plaza', props.site.id)
 }
 </script>
 
@@ -69,24 +75,40 @@ function onTogglePin() {
     >
       {{ site.detail }}
     </div>
-    <button
-      type="button"
-      class="pin-btn"
-      :class="{ pinned: isPinned }"
-      :aria-pressed="isPinned"
-      :aria-label="isPinned ? `取消置顶 ${site.name}` : `置顶 ${site.name}`"
-      @click="onTogglePin"
-    >
-      <svg v-if="isPinned" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path
-          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-        />
-      </svg>
-      <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-        <path
-          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
-        />
-      </svg>
-    </button>
+    <div class="site-card-actions">
+      <button
+        v-if="canSync"
+        type="button"
+        class="sync-btn"
+        :disabled="syncing"
+        :aria-label="`从广场同步 ${site.name}`"
+        title="从广场同步"
+        @click="onSync"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 12a9 9 0 0 0-15.5-6.4M3 4v5h5" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M3 12a9 9 0 0 0 15.5 6.4M21 20v-5h-5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="pin-btn"
+        :class="{ pinned: isPinned }"
+        :aria-pressed="isPinned"
+        :aria-label="isPinned ? `取消置顶 ${site.name}` : `置顶 ${site.name}`"
+        @click="onTogglePin"
+      >
+        <svg v-if="isPinned" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+        <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path
+            d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+          />
+        </svg>
+      </button>
+    </div>
   </article>
 </template>

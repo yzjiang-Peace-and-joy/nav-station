@@ -24,10 +24,30 @@ export function useSites({ isPinned }) {
   function setCategory(id) { activeCategory.value = id }
   function resetFilters() { clearTimeout(debounceTimer); searchQuery.value = ''; deferredQuery.value = ''; activeTag.value = null; activeCategory.value = 'all' }
   function defaultPinnedIds() { return sites.value.filter((s) => s.pinned === true).map((s) => s.id) }
+  async function syncFromPlaza(siteSlug) {
+    try {
+      const updated = await apiFetch(`/nav/sites/${encodeURIComponent(siteSlug)}/sync-from-plaza`, { method: 'POST' })
+      const idx = sites.value.findIndex((s) => s.id === siteSlug)
+      if (idx >= 0) {
+        sites.value[idx] = {
+          ...sites.value[idx],
+          name: updated.name,
+          url: updated.url,
+          desc: updated.desc,
+          detail: updated.detail,
+          tags: updated.tags || [],
+          source_plaza_id: updated.source_plaza_id ?? sites.value[idx].source_plaza_id
+        }
+      }
+      return { ok: true, site: updated }
+    } catch (err) {
+      return { ok: false, message: err.message || '同步失败' }
+    }
+  }
   const filteredSites = computed(() => { const q = deferredQuery.value.toLowerCase(); const tag = activeTag.value; return sites.value.filter((s) => (!tag || s.tags.includes(tag)) && (!q || [s.name, s.desc, s.tags.join(' ')].some((v) => (v || '').toLowerCase().includes(q)))) })
   const pinnedSites = computed(() => filteredSites.value.filter(isPinned)), visibleSites = computed(() => filteredSites.value.filter((s) => !isPinned(s)))
   const categoryCounts = computed(() => Object.fromEntries(categories.value.map((c) => [c.id, visibleSites.value.filter((s) => s.category === c.id).length])))
   const displayGroups = computed(() => { const groups = categories.value.map((c) => ({ ...c, sites: visibleSites.value.filter((s) => s.category === c.id) })).filter((g) => g.sites.length); if (activeCategory.value === 'all' || activeCategory.value === 'pinned') return activeCategory.value === 'all' ? groups : []; return groups.filter((g) => g.id === activeCategory.value) })
   const showPinnedView = computed(() => activeCategory.value === 'pinned' && pinnedSites.value.length > 0), hasResults = computed(() => showPinnedView.value || displayGroups.value.length > 0)
-  return { categories, sites, tags, loadError, searchQuery, activeTag, activeCategory, filteredSites, pinnedSites, categoryCounts, displayGroups, showPinnedView, hasResults, load, setQuery, setTag, setCategory, resetFilters, defaultPinnedIds }
+  return { categories, sites, tags, loadError, searchQuery, activeTag, activeCategory, filteredSites, pinnedSites, categoryCounts, displayGroups, showPinnedView, hasResults, load, setQuery, setTag, setCategory, resetFilters, defaultPinnedIds, syncFromPlaza }
 }

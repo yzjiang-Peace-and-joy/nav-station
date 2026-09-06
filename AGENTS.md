@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-个人导航站：Vue 3 SPA + FastAPI API，JWT 多用户认证，SQLite 持久化。
+导航站：Vue 3 SPA + FastAPI API，JWT 多用户认证，SQLite 持久化；含个人网址目录与全局共享广场。
 
 ## 读文档顺序
 

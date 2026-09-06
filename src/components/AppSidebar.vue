@@ -9,7 +9,9 @@ const props = defineProps({
   pinnedCount: { type: Number, default: 0 },
   tags: { type: Array, default: () => [] },
   activeTag: { type: String, default: null },
-  open: { type: Boolean, default: false }
+  open: { type: Boolean, default: false },
+  showPinned: { type: Boolean, default: true },
+  brandTitle: { type: String, default: '导航站' }
 })
 
 const emit = defineEmits(['update:activeCategory', 'update:activeTag', 'close'])
@@ -58,7 +60,7 @@ function onTagSearchKeydown(event) {
 
 <template>
   <aside class="app-sidebar" :class="{ 'is-open': open }" aria-label="分类导航">
-    <h1 class="sidebar-brand">导航站</h1>
+    <h1 class="sidebar-brand">{{ brandTitle }}</h1>
 
     <div class="sidebar-body">
       <div class="sidebar-section sidebar-section--nav">
@@ -75,7 +77,7 @@ function onTagSearchKeydown(event) {
           </button>
 
           <button
-            v-if="pinnedCount > 0"
+            v-if="showPinned && pinnedCount > 0"
             type="button"
             class="sidebar-item"
             :class="{ active: activeCategory === 'pinned' }"

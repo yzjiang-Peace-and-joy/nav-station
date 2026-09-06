@@ -1,1 +1,1 @@
-from . import auth, nav, pins
+from . import auth, nav, pins, plaza

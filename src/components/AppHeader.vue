@@ -6,12 +6,26 @@ const props = defineProps({
   query: { type: String, default: '' },
   theme: { type: String, default: 'light' },
   username: { type: String, default: '' },
-  otherAccounts: { type: Array, default: () => [] }
+  otherAccounts: { type: Array, default: () => [] },
+  viewMode: { type: String, default: 'mine' },
+  includeArchived: { type: Boolean, default: false }
 })
 
-const emit = defineEmits(['update:query', 'toggle-theme', 'toggle-menu', 'logout', 'switch-account'])
+const emit = defineEmits([
+  'update:query',
+  'toggle-theme',
+  'toggle-menu',
+  'logout',
+  'switch-account',
+  'update:viewMode',
+  'create-plaza',
+  'update:includeArchived'
+])
 
 const themeLabel = computed(() => (props.theme === 'dark' ? '切换到浅色模式' : '切换到深色模式'))
+const searchPlaceholder = computed(() =>
+  props.viewMode === 'plaza' ? '搜索广场站点、描述或标签…' : '搜索站点、描述或标签…'
+)
 
 function onInput(event) {
   emit('update:query', event.target.value)
@@ -31,6 +45,30 @@ function onInput(event) {
           <path d="M4 7h16M4 12h16M4 17h16" />
         </svg>
       </button>
+
+      <div class="view-switch" role="tablist" aria-label="视图切换">
+        <button
+          type="button"
+          role="tab"
+          class="view-switch-btn"
+          :class="{ active: viewMode === 'mine' }"
+          :aria-selected="viewMode === 'mine'"
+          @click="emit('update:viewMode', 'mine')"
+        >
+          我的
+        </button>
+        <button
+          type="button"
+          role="tab"
+          class="view-switch-btn"
+          :class="{ active: viewMode === 'plaza' }"
+          :aria-selected="viewMode === 'plaza'"
+          @click="emit('update:viewMode', 'plaza')"
+        >
+          广场
+        </button>
+      </div>
+
       <div class="header-search">
         <div class="search-box">
           <svg
@@ -49,7 +87,7 @@ function onInput(event) {
             class="search-input"
             type="search"
             :value="query"
-            placeholder="搜索站点、描述或标签…"
+            :placeholder="searchPlaceholder"
             aria-label="搜索站点"
             autocomplete="off"
             @input="onInput"
@@ -57,6 +95,19 @@ function onInput(event) {
         </div>
       </div>
       <div class="header-actions">
+        <template v-if="viewMode === 'plaza'">
+          <label class="archive-toggle">
+            <input
+              type="checkbox"
+              :checked="includeArchived"
+              @change="emit('update:includeArchived', $event.target.checked)"
+            />
+            <span>显示已下架</span>
+          </label>
+          <button type="button" class="header-text-btn" @click="emit('create-plaza')">
+            提交网站
+          </button>
+        </template>
         <UserMenu
           v-if="username"
           :username="username"
