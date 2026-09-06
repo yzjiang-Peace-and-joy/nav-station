@@ -22,9 +22,9 @@ sequenceDiagram
 | 环境 | SPA | API |
 |---|---|---|
 | 开发 | Vite `5173` | 默认同源 `/api`，Vite proxy → `127.0.0.1:9966` |
-| 生产 | Nginx 静态 `dist/`，见 `nginx/nav.5ai.icu.conf` | 默认同源 `https://nav.5ai.icu/api` → FastAPI `9966` |
+| 生产 | Nginx 静态 `dist/`，见 `nginx/nav.5ai.icu.conf`（HTTP/1.1；同机 `:443` 不宜混开 HTTP/2） | 默认同源 `https://nav.5ai.icu/api` → systemd `nav-station-api` → `127.0.0.1:9966` |
 
-完整接口表见 [API.md](../API.md)。后端入口是 `backend/app/main.py`，服务默认监听 `0.0.0.0:9966`。前端构建产物由 Nginx 提供，FastAPI 不负责 SPA 静态文件。
+完整接口表见 [API.md](../API.md)。后端入口是 `backend/app/main.py`；本地 `run.py` 默认可监听 `0.0.0.0:9966`，生产由 `nav-station-api.service` 监听本机环回。前端构建产物由 Nginx 提供，FastAPI 不负责 SPA 静态文件。
 
 ## 认证流
 

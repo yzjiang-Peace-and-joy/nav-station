@@ -2,6 +2,12 @@
 
 记录架构级决策与边界变化，不替代 Git history。
 
+## 2026-09-06 — 生产稳定性：systemd + 关闭 HTTP/2
+
+- **原因：** 浏览器偶发 `ERR_CONNECTION_CLOSED`（Network 无状态码、0 B，nginx access 无记录），属 TLS/连接层中断；叠加后端曾用 `python run.py` 裸跑，重启窗口会出现旧路由 404。Nginx 1.18 在同一 `:443` 上任一 `listen ... http2` 会使全部站点协商 HTTP/2。
+- **变更：** 启用并开机自启 `nav-station-api`（`backend/nav-station-api.service`）；生产与仓库 `nginx/nav.5ai.icu.conf` 改为仅 HTTP/1.1；本机全部 `:443` listen 去掉 `http2` 后 **restart**（非 reload）nginx。
+- **影响文件：** `backend/nav-station-api.service`、`nginx/nav.5ai.icu.conf`、`docs/architecture/{overview,backend,CHANGELOG}.md`
+
 ## 2026-09-06 — 生产 API 改回同源 /api
 
 - **原因：** 浏览器访问 `nav-api.5ai.icu` 出现 `ERR_CONNECTION_RESET`；服务端 curl 正常，但前端不可用。同源 `https://nav.5ai.icu/api` 登录与广场均正常。

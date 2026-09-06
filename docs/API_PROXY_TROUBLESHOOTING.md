@@ -168,9 +168,18 @@ curl -sk https://nav.5ai.icu/api/nav \
 - nginx access log 中能看到对应 API 请求，FastAPI 日志中能看到对应路由访问。
 - 浏览器强制刷新后，Network 面板中的请求地址为 `https://nav.5ai.icu/api/...`，不再是 `nav-api.5ai.icu`。
 
-## 7. 后续预防措施
+## 7. 补充：主站偶发 `ERR_CONNECTION_CLOSED`
 
-- 后端使用 systemd 或其他进程管理器托管，避免 `nohup` 进程在重启后消失。
+若浏览器打开 `https://nav.5ai.icu/` 本身（不是 `/api`）出现「无法访问此页面 / 连接已关闭」，且 Network 里 document 无状态码、0 B：
+
+- 请求通常 **没有进入 nginx access log**（卡在 TCP/TLS，未形成 HTTP）。
+- 本机 `curl https://nav.5ai.icu/` 连续成功、证书校验 OK 时，更像客户端路径或 HTTP/2 复用问题，而不是 Vue/FastAPI 业务代码。
+- Nginx 1.18：同一 IP 的 `:443` 上只要有一个 `listen ... http2`，所有 server 都会协商 H2；要关闭需去掉全部 `http2` 并 **`systemctl restart nginx`**（reload 不够）。
+- 后端须用 `systemctl status nav-station-api` 确认，勿与 `8000` 上其他 FastAPI 混淆。
+
+## 8. 后续预防措施
+
+- 后端使用 systemd 单元 `nav-station-api` 托管，避免 `nohup` / 裸 `python run.py` 在重启后消失或跑旧代码。
 - 部署脚本中按顺序执行：安装依赖、seed、健康检查、启动/重启服务、nginx 配置检查、外部 API 检查。
 - 不要只检查 HTTP 状态码；同时检查 `Content-Type` 和响应体是否为 JSON，防止把 SPA HTML 当成 API 响应。
 - 维护仓库中的 nginx 配置与服务器实际生效配置，修改后执行 `nginx -T` 核对。

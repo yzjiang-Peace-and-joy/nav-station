@@ -2,7 +2,7 @@
 
 ## 1. 技术选型与入口
 
-后端是 FastAPI + SQLAlchemy 2 + SQLite，使用 Pydantic Settings 配置，JWT（`python-jose`）认证，bcrypt 密码哈希。入口为 `backend/app/main.py`；`backend/run.py` 与 `backend/run.sh` 用于启动服务，默认监听 `0.0.0.0:9966`。
+后端是 FastAPI + SQLAlchemy 2 + SQLite，使用 Pydantic Settings 配置，JWT（`python-jose`）认证，bcrypt 密码哈希。入口为 `backend/app/main.py`；`backend/run.py` 与 `backend/run.sh` 用于本地启动（默认 `0.0.0.0:9966`）。生产用 systemd 单元 `backend/nav-station-api.service`（服务名 `nav-station-api`）托管 uvicorn，监听 `127.0.0.1:9966`，由 Nginx 同源反代。
 
 路由采用 thin router 模式：认证、导航、置顶与广场业务逻辑直接位于 `app/routers/`，当前没有独立 service 层。
 
@@ -12,6 +12,7 @@
 backend/
 ├── run.py
 ├── run.sh
+├── nav-station-api.service
 ├── alembic.ini
 ├── alembic/env.py
 ├── alembic/versions/0001_initial.py
