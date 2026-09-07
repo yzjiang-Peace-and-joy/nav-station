@@ -2,6 +2,15 @@
 
 记录架构级决策与边界变化，不替代 Git history。
 
+## 2026-09-07 — 「我的」创建站点 + 可选同步公开到广场
+
+- **原因：** 「我的」此前只能从广场导入或被动接收数据，需要支持直接上传网址，并可选择性公开到广场共享。
+- **变更：**
+  - 新增 `POST /api/nav/sites`（`publish_to_plaza` 开关）：勾选时按 URL 幂等同步广场（已有同 URL 条目则关联，否则创建）并写 `source_plaza_site_id`；个人分类/标签 get-or-create（`get_or_create_personal_category`）
+  - 前端 `AppHeader` 在「我的」视图显示「添加网站」；`PlazaSiteForm` 增加 `context: mine | plaza`，mine 创建流程含「同步公开到广场」checkbox；`useSites.createSite` 调用新接口；`App.vue` 按 `viewMode` 分流 create/edit 提交
+  - 广场「提交网站」行为与字段不变；个人编辑/同步方向不变（不回写广场）
+- **影响文件：** `backend/app/routers/{nav,plaza}.py`、`src/App.vue`、`src/components/{AppHeader,PlazaSiteForm}.vue`、`src/composables/useSites.js`、`docs/API.md`、`docs/architecture/{overview,backend,frontend,CHANGELOG}.md`
+
 ## 2026-09-06 — 广场提交接入 Agnes AI 解析
 
 - **原因：** 将广场「只填网址 → AI 补全 → 用户审阅」流程从前端 mock 替换为真实后端服务，同时避免 API Key 暴露到浏览器。

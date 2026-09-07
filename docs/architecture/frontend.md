@@ -48,7 +48,7 @@ src/
 
 ### `useSites.js`
 
-通过 `/api/nav` 加载当前用户的 categories、tags、sites，并暴露 `loadError`、`searchQuery`、`activeTag`、`activeCategory`、`pinnedSites`、`categoryCounts`、`displayGroups`、`showPinnedView`、`hasResults`、`defaultPinnedIds()`、`syncFromPlaza(siteSlug)` 及筛选操作。搜索与标签、分类筛选叠加；服务端返回的 `pinned` 只用于默认置顶初始化；`source_plaza_id` 用于展示同步入口。
+通过 `/api/nav` 加载当前用户的 categories、tags、sites，并暴露 `loadError`、`searchQuery`、`activeTag`、`activeCategory`、`pinnedSites`、`categoryCounts`、`displayGroups`、`showPinnedView`、`hasResults`、`defaultPinnedIds()`、`createSite(payload)`、`syncFromPlaza(siteSlug)` 及筛选操作。搜索与标签、分类筛选叠加；服务端返回的 `pinned` 只用于默认置顶初始化；`source_plaza_id` 用于展示同步入口。`createSite(payload)` 调用 `POST /nav/sites`（含可选 `publish_to_plaza`），成功后重新 `load()`。
 
 ### `usePlaza.js`
 
@@ -68,13 +68,13 @@ src/
 
 | 组件 | 主要输入 | 主要输出 |
 |---|---|---|
-| `AppHeader` | `query`、`theme`、`viewMode`、`includeArchived`、用户与账户 | `update:query`、`update:viewMode`、`update:includeArchived`、`create-plaza`、主题/菜单/登出/切账户 |
+| `AppHeader` | `query`、`theme`、`viewMode`、`includeArchived`、用户与账户 | `update:query`、`update:viewMode`、`update:includeArchived`、`create-site`（我的）、`create-plaza`（广场）、主题/菜单/登出/切账户 |
 | `AppSidebar` | 分类、标签、活动项、计数、`showPinned`、`brandTitle`、drawer | `update:active-category`、`update:active-tag`、`close` |
 | `LoginView` | `theme` | `login`、`toggle-theme` |
 | `CategorySection` | `title`、`sites` | `leading` slot 与默认 slot |
 | `SiteCard` | `site`、`isPinned`、`index`、`syncing` | `toggle-pin`、`sync-from-plaza` |
 | `PlazaSiteCard` | `site`、`index`、`busy` | `add`、`edit`、`archive`、`restore` |
-| `PlazaSiteForm` | `open`、`mode`、`site`、`categories`、`busy`；create 为两步（仅网址 → 审阅全字段），经 `aiSiteSuggest.suggestSiteFromUrl` 预填；edit 仍为全字段 | `close`、`submit`；`setError` |
+| `PlazaSiteForm` | `open`、`mode`、`site`、`categories`、`busy`、`context`（`mine` \| `plaza`，创建时选择字段）；create 为两步（仅网址 → 审阅全字段），经 `aiSiteSuggest.suggestSiteFromUrl` 预填；`context=mine` 的创建流程含「同步公开到广场」开关（默认关）并随 payload 提交 `publish_to_plaza`；edit 仍为全字段 | `close`、`submit`；`setError` |
 | `TagFilter` | `tags`、`activeTag` | `update:activeTag` |
 | `UserMenu` | 当前用户、其他账户 | 登出、切换账户 |
 
@@ -92,7 +92,7 @@ src/
 
 所有请求经 `apiFetch()` 发出。默认基址为空串，最终 URL 为同源 `/api{path}`（生产即 `https://nav.5ai.icu/api...`）；可用 `VITE_API_BASE_URL` 覆盖。请求自动设置 JSON 头与 `Authorization: Bearer`。401 会清理认证缓存。完整路由表见 [API.md](../API.md)。
 
-`GET /api/nav` 站点对象含可选 `source_plaza_id`。广场相关接口由 `usePlaza` / `useSites.syncFromPlaza` 调用。
+`GET /api/nav` 站点对象含可选 `source_plaza_id`。广场相关接口由 `usePlaza` / `useSites.syncFromPlaza` 调用；「我的」创建走 `useSites.createSite` → `POST /api/nav/sites`，`App.vue` 按提交时的 `viewMode` 分流到 `createSite` 或 `createPlaza`。
 
 `api/aiSiteSuggest.js` 导出 `suggestSiteFromUrl(url)`，经 `apiFetch('/plaza/ai-suggest')` 调用后端 Agnes 解析服务，返回与广场创建字段对齐的 `{ name, url, desc, detail, category, tags }`。API Key 仅存后端 `.env`，前端不接触模型凭据。
 
@@ -100,4 +100,4 @@ src/
 
 ## 7. 容错
 
-加载失败显示数据错误状态；无筛选结果显示空状态；个人目录为空时引导前往广场；favicon 失败由卡片降级展示。认证失败回到登录视图。API 或持久化行为变化时，必须同步前端、概览和后端文档。
+加载失败显示数据错误状态；无筛选结果显示空状态；个人目录为空时提供「添加网站」入口（复用创建弹层）；favicon 失败由卡片降级展示。认证失败回到登录视图。API 或持久化行为变化时，必须同步前端、概览和后端文档。

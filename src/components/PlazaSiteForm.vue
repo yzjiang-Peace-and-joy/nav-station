@@ -7,7 +7,8 @@ const props = defineProps({
   mode: { type: String, default: 'create' },
   site: { type: Object, default: null },
   categories: { type: Array, default: () => [] },
-  busy: { type: Boolean, default: false }
+  busy: { type: Boolean, default: false },
+  context: { type: String, default: 'plaza' }
 })
 
 const emit = defineEmits(['close', 'submit'])
@@ -20,11 +21,14 @@ const desc = ref('')
 const detail = ref('')
 const category = ref('')
 const tagsText = ref('')
+const publishToPlaza = ref(false)
 const error = ref('')
 
 const isCreate = computed(() => props.mode !== 'edit')
+const isMine = computed(() => props.context === 'mine')
 const title = computed(() => {
   if (!isCreate.value) return '编辑广场站点'
+  if (isMine.value) return step.value === 'url' ? '添加到我的' : '审阅站点信息'
   return step.value === 'url' ? '提交到广场' : '审阅站点信息'
 })
 const locked = computed(() => props.busy || suggesting.value)
@@ -37,6 +41,7 @@ function resetCreateFields() {
   detail.value = ''
   category.value = ''
   tagsText.value = ''
+  publishToPlaza.value = false
 }
 
 function fillFromSuggestion(suggestion) {
@@ -126,7 +131,8 @@ function onSubmit() {
     desc: desc.value.trim(),
     detail: detail.value.trim(),
     category: category.value.trim() || null,
-    tags: parseTags(tagsText.value)
+    tags: parseTags(tagsText.value),
+    ...(isMine.value && isCreate.value ? { publish_to_plaza: publishToPlaza.value } : {})
   }
   if (!payload.name || !payload.url) {
     error.value = '请填写名称和网址'
@@ -177,6 +183,11 @@ defineExpose({ setError })
               autocomplete="off"
               :disabled="suggesting"
             />
+          </label>
+
+          <label v-if="isMine && isCreate" class="form-check">
+            <input v-model="publishToPlaza" type="checkbox" :disabled="suggesting" />
+            <span>同步公开到广场</span>
           </label>
 
           <p v-if="error" class="form-error">{{ error }}</p>
@@ -261,6 +272,10 @@ defineExpose({ setError })
               :disabled="suggesting"
             />
           </label>
+          <label v-if="isMine && isCreate" class="form-checkbox">
+            <input v-model="publishToPlaza" type="checkbox" :disabled="suggesting" />
+            <span>同步公开到广场</span>
+          </label>
 
           <p v-if="error" class="form-error">{{ error }}</p>
 
@@ -292,6 +307,12 @@ defineExpose({ setError })
 </template>
 
 <style scoped>
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .form-hint {
   margin: 0;
   font-size: var(--font-size-sm);

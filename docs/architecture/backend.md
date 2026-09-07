@@ -73,6 +73,7 @@ erDiagram
 | `GET` | `/api/auth/me` | 是 | 返回当前用户名 |
 | `GET` | `/api/auth/accounts` | 是 | 返回其他账户用户名 |
 | `GET` | `/api/nav` | 是 | 返回当前用户的 categories、tags、sites |
+| `POST` | `/api/nav/sites` | 是 | 「我的」新建个人站点；body `{name,url,desc?,detail?,category?,tags?,publish_to_plaza?}`；`publish_to_plaza=true` 时按 URL 幂等同步广场（已有同 URL 广场条目则关联，否则创建）并写入 `source_plaza_site_id`，当前用户已导入同源时返回 409；分类/标签按用户 get-or-create |
 | `POST` | `/api/nav/sites/{site_slug}/sync-from-plaza` | 是 | 用已关联的广场最新字段覆盖个人副本（不改分类/排序/置顶） |
 | `GET` | `/api/pins` | 是 | 返回 `site_ids`；首次访问时导入默认置顶 |
 | `PUT` | `/api/pins` | 是 | 用 slug 数组整体替换置顶集合 |

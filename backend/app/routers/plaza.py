@@ -192,6 +192,37 @@ def resolve_personal_category(
     return None
 
 
+def get_or_create_personal_category(
+    db: Session,
+    user: User,
+    name_or_slug: str | None,
+) -> Category | None:
+    raw = (name_or_slug or "").strip()
+    if not raw or raw == "__uncategorized":
+        return None
+    slug = slugify(raw, max_len=100)
+    cat = db.scalar(
+        select(Category).where(
+            Category.user_id == user.id,
+            or_(Category.slug == slug, Category.name == raw),
+        )
+    )
+    if cat:
+        return cat
+    candidate = slug
+    for i in range(2, 1000):
+        if not db.scalar(
+            select(Category.id).where(Category.user_id == user.id, Category.slug == candidate)
+        ):
+            break
+        candidate = f"{slug}-{i}"
+    max_order = db.scalar(select(func.max(Category.sort_order)).where(Category.user_id == user.id)) or 0
+    cat = Category(user_id=user.id, slug=candidate, name=raw, sort_order=max_order + 1)
+    db.add(cat)
+    db.flush()
+    return cat
+
+
 def get_or_create_personal_tags(db: Session, user_id: int, names: list[str]) -> list[Tag]:
     result = []
     for name in names:

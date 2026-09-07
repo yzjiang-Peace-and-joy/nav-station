@@ -43,6 +43,7 @@ sequenceDiagram
 | `GET` | `/api/auth/me` | 当前用户 | 验证 token |
 | `GET` | `/api/auth/accounts` | 当前用户 | 账户切换列表 |
 | `GET` | `/api/nav` | 当前用户 | 完整导航数据（含可选 `source_plaza_id`） |
+| `POST` | `/api/nav/sites` | 当前用户 | 「我的」新建站点；`publish_to_plaza` 为真时同步创建/关联广场 |
 | `POST` | `/api/nav/sites/{site_slug}/sync-from-plaza` | 当前用户 | 从广场来源重新同步个人副本 |
 | `GET` | `/api/pins` | 当前用户 | 置顶 slug 列表 |
 | `PUT` | `/api/pins` | 当前用户 | 替换置顶集合 |

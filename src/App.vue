@@ -44,7 +44,8 @@ const {
   setCategory,
   resetFilters,
   defaultPinnedIds,
-  syncFromPlaza
+  syncFromPlaza,
+  createSite
 } = useSites({ isPinned: pinned.isPinned })
 
 const {
@@ -197,6 +198,11 @@ function openCreateForm() {
   formOpen.value = true
 }
 
+function openMineCreateForm() {
+  viewMode.value = 'mine'
+  openCreateForm()
+}
+
 function openEditForm(site) {
   formMode.value = 'edit'
   editingSite.value = site
@@ -212,13 +218,15 @@ async function handleFormSubmit(payload) {
   const result =
     formMode.value === 'edit' && editingSite.value
       ? await updatePlaza(editingSite.value.id, payload)
-      : await createPlaza(payload)
+      : isPlaza.value
+        ? await createPlaza(payload)
+        : await createSite(payload)
   if (!result.ok) {
     formRef.value?.setError(result.message)
     return
   }
   closeForm()
-  showToast(formMode.value === 'edit' ? '已保存' : '已提交到广场')
+  showToast(formMode.value === 'edit' ? '已保存' : isPlaza.value ? '已提交到广场' : '已添加到我的目录')
 }
 
 async function handleAddToNav(slug) {
@@ -279,6 +287,7 @@ function clearCurrentFilters() {
       @update:view-mode="viewMode = $event"
       @update:include-archived="setIncludeArchived"
       @create-plaza="openCreateForm"
+      @create-site="openMineCreateForm"
       @toggle-theme="toggleTheme"
       @toggle-menu="toggleSidebar"
       @logout="handleLogout"
@@ -418,7 +427,7 @@ function clearCurrentFilters() {
           <p>
             <template v-if="searchQuery">没有找到与「{{ searchQuery }}」相关的网站</template>
             <template v-else-if="activeTag">没有找到标签「{{ activeTag }}」下的网站</template>
-            <template v-else-if="mineIsEmpty">你的目录还是空的，去广场挑一些实用网站吧</template>
+            <template v-else-if="mineIsEmpty">你的目录还是空的，添加一个网站开始吧</template>
             <template v-else>没有找到匹配的网站</template>
           </p>
           <button
@@ -433,9 +442,9 @@ function clearCurrentFilters() {
             v-else-if="mineIsEmpty"
             type="button"
             class="empty-clear-btn"
-            @click="goPlaza"
+            @click="openMineCreateForm"
           >
-            前往广场
+            添加网站
           </button>
         </div>
       </main>
@@ -446,7 +455,8 @@ function clearCurrentFilters() {
       :open="formOpen"
       :mode="formMode"
       :site="editingSite"
-      :categories="plazaCategories"
+      :context="isPlaza ? 'plaza' : 'mine'"
+      :categories="isPlaza ? plazaCategories : categories"
       :busy="plazaBusy"
       @close="closeForm"
       @submit="handleFormSubmit"

@@ -19,6 +19,7 @@ const emit = defineEmits([
   'switch-account',
   'update:viewMode',
   'create-plaza',
+  'create-site',
   'update:includeArchived'
 ])
 
@@ -108,6 +109,9 @@ function onInput(event) {
             提交网站
           </button>
         </template>
+        <button v-else type="button" class="header-text-btn" @click="emit('create-site')">
+          添加网站
+        </button>
         <UserMenu
           v-if="username"
           :username="username"

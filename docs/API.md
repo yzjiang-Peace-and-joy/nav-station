@@ -50,6 +50,7 @@ Authorization: Bearer <access_token>
 | 方法 | 路径 | 认证 | 说明 |
 |------|------|------|------|
 | `GET` | `/api/nav` | 是 | `{categories,tags,sites}`；站点含可选 `source_plaza_id` |
+| `POST` | `/api/nav/sites` | 是 | 创建个人站点；body: `{name,url,desc?,detail?,category?,tags?,publish_to_plaza?}`；勾选公开时同时创建或关联广场站点 |
 | `POST` | `/api/nav/sites/{site_slug}/sync-from-plaza` | 是 | 从广场来源覆盖个人副本字段 |
 
 站点对象字段：`id`、`name`、`url`、`desc`、`detail`、`category`、`tags`、`pinned`、`source_plaza_id`。
@@ -83,7 +84,7 @@ Authorization: Bearer <access_token>
 | Composable | 主要接口 |
 |------------|----------|
 | `useAuth` | `/api/auth/login`、`/me`、`/accounts` |
-| `useSites` | `/api/nav`、`/api/nav/sites/{slug}/sync-from-plaza` |
+| `useSites` | `/api/nav`、`/api/nav/sites`、`/api/nav/sites/{slug}/sync-from-plaza` |
 | `usePinned` | `/api/pins*` |
 | `usePlaza` | `/api/plaza*` |
 
