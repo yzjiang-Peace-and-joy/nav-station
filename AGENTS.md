@@ -24,3 +24,14 @@
 - 路由：`backend/app/routers/`
 - 数据模型：`backend/app/models/entities.py`
 - 配置：`backend/app/config.py`
+
+## Cursor Cloud specific instructions
+
+Cloud Agent 的 `install` 会安装 `python3.12-venv`、执行 `npm ci`，并在 `backend/.venv` 安装 `backend/requirements.txt`。`start` 会在 `backend/` 下执行 `.venv/bin/python -m app.seed`，然后拉起 API 与 Vite。依赖和进程已由环境托管，不要在 `start` 里再装包。
+
+- 前端：`http://127.0.0.1:5173`。Vite 把 `/api` 代理到 `127.0.0.1:9966`。
+- 后端：工作目录 `backend/`，命令 `.venv/bin/python run.py`，监听 `0.0.0.0:9966`。健康检查是 `GET /health` 和 `GET /api/health`。
+- 种子用户：`yzjiang` 与 `test`，密码都是 `123456`。广场数据来自 `src/data/sites.json`。SQLite 文件是启动目录下的 `nav_station.db`（即 `backend/nav_station.db`）。
+- 仓库没有自动化测试。前端生产构建命令是 `npm run build`。
+- `AGNES_API_KEY` 只用于广场 AI 字段建议。登录、个人目录和广场浏览不需要它。
+- 仓库里的 `vite.config.js` 把 HMR 指到 `wss://test-front.5ai.icu`，那是远程前端隧道用的。Cloud Agent 的 `start` 会写一份临时 Vite 配置，把 HMR 关掉后再启动 `5173`，避免浏览器去连那台隧道。不要把这份临时配置提交进仓库。
