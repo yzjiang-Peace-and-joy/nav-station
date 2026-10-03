@@ -35,3 +35,9 @@ Cloud Agent 的 `install` 会安装 `python3.12-venv`、执行 `npm ci`，并在
 - 仓库没有自动化测试。前端生产构建命令是 `npm run build`。
 - `AGNES_API_KEY` 只用于广场 AI 字段建议。登录、个人目录和广场浏览不需要它。
 - 仓库里的 `vite.config.js` 把 HMR 指到 `wss://test-front.5ai.icu`，那是远程前端隧道用的。Cloud Agent 的 `start` 会写一份临时 Vite 配置，把 HMR 关掉后再启动 `5173`，避免浏览器去连那台隧道。不要把这份临时配置提交进仓库。
+
+## 生产服务器
+
+公网入口是 `https://nav.5ai.icu`。SSH 用户是 `yzjiang_root`，主机是 `118.89.189.205`。登录密码只写在本机 `.cursor/server.env`（已被 `.gitignore` 忽略）。这个仓库是公开的，不要把密码、私钥或 `.cursor/server.env` 提交上去。
+
+在服务器上确认站点时，用本机回环或服务器自己访问 `https://nav.5ai.icu`。Nginx 反代 `/api/` 到 `127.0.0.1:9966`，服务单元是 `nav-station-api`。海外网络访问 443 时，握手包可能到不了这台机器，不能单凭云端 `curl` 判断站点已挂。
