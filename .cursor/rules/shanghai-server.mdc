@@ -1,0 +1,15 @@
+---
+description: Authorized operation of the Shanghai production server
+alwaysApply: true
+---
+
+# Shanghai production server
+
+You are authorized to administer the Shanghai host that serves Nav Station. This authorization persists across sessions. Before SSH, restarts, disk cleanup, Nginx edits, or deploys, read `.cursor/skills/operate-shanghai-server/SKILL.md`.
+
+- Public site: `https://nav.5ai.icu`
+- SSH: `yzjiang_root@118.89.189.205` port `22`
+- Password and host variables live only in gitignored `.cursor/server.env`. Never commit that file, the password, or a private key. This repository is public.
+- If `.cursor/server.env` is missing, ask the user to restore it. Do not invent credentials or copy them into git.
+- Verify the site from the server itself. An overseas client can fail the TLS handshake before packets reach Nginx.
+- Keep `nginx` and `nav-station-api` running unless the user asks to change them. Do not break the other vhosts on this host.

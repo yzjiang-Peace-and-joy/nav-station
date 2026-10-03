@@ -17,6 +17,7 @@ description: Orients agents to the Nav Station Vue + FastAPI project structure, 
    - Visual / CSS tokens → `VISUAL.md`
    - Acceptance criteria → `ACCEPTANCE.md`
    - Backend startup only → `backend/README.md`
+   - Shanghai server, SSH, disk, Nginx, or production checks → `.cursor/skills/operate-shanghai-server/SKILL.md`
 
 Do not treat root `architecture.md` as the source of truth; it is a pointer to `docs/`.
 

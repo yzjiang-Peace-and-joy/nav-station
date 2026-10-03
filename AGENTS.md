@@ -38,6 +38,6 @@ Cloud Agent 的 `install` 会安装 `python3.12-venv`、执行 `npm ci`，并在
 
 ## 生产服务器
 
-公网入口是 `https://nav.5ai.icu`。SSH 用户是 `yzjiang_root`，主机是 `118.89.189.205`。登录密码只写在本机 `.cursor/server.env`（已被 `.gitignore` 忽略）。这个仓库是公开的，不要把密码、私钥或 `.cursor/server.env` 提交上去。
+用户已授权代理长期管理上海主机。每个新会话都会通过 `.cursor/rules/shanghai-server.mdc` 看到这件事。登录、巡检、清磁盘或改 Nginx 之前，先读 `.cursor/skills/operate-shanghai-server/SKILL.md`。
 
-在服务器上确认站点时，用本机回环或服务器自己访问 `https://nav.5ai.icu`。Nginx 反代 `/api/` 到 `127.0.0.1:9966`，服务单元是 `nav-station-api`。海外网络访问 443 时，握手包可能到不了这台机器，不能单凭云端 `curl` 判断站点已挂。
+公网入口是 `https://nav.5ai.icu`。SSH 用户是 `yzjiang_root`，主机是 `118.89.189.205`。登录密码只写在本机 `.cursor/server.env`（已被 `.gitignore` 忽略）。这个仓库是公开的，不要把密码、私钥或 `.cursor/server.env` 提交上去。新环境如果没有这个文件，先向用户要回凭据，不要把密码写进仓库。
