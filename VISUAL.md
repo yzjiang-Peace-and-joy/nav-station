@@ -131,6 +131,7 @@
 - 语义化结构：`<header>` → 侧栏 `<h1>` 站名 → `<main>`（含 `page-intro`）→ 每个分类用 `<section>` + `<h2>`。**不用 eyebrow/kicker、不用 01/02/03 编号**——标题自己承载层级
 - `page-intro` 使用 `<p>` 承载视图标题（不是第二个 `h1`），右侧以 `--font-mono` 显示当前结果计数
 - 品牌标识 `BrandMark`：与 favicon 同源的几何山形标，用于登录页与侧栏，颜色走 `--accent`
+- 侧栏背景使用 `--bg-secondary`，与主内容区 `--bg-primary` 形成轻微分区层次
 
 ### 3.2 网格
 
@@ -194,10 +195,11 @@
 | 星标（未置顶） | 默认隐藏，hover 显现，颜色 `--fg-tertiary`，SVG 线条 |
 | 星标（已置顶） | 常显，颜色 `--accent`，SVG 填充实心 |
 
-- favicon 托盘：28×28px，`--bg-hover` 底 + 1px `--border`，圆角 `--radius-sm`；内部图标 18×18px
+- favicon 托盘：26×26px，`--bg-secondary` 底 + 1px `--border`，圆角 `--radius-sm`；内部图标 16×16px
 - favicon 加载失败降级为首字母色块（颜色由站点 id hash 映射到 6 个柔和色）
 - 描述：`--font-size-sm`，`--fg-secondary`，单行省略（`text-overflow: ellipsis`），左缩进对齐站名
 - 整个卡片为链接，点击 `target="_blank"` 新标签打开
+- 网格最小列宽 `--grid-min: 220px`，避免站名被操作区 padding 过度截断
 
 ### 4.4 CategorySection（分类区块）
 
