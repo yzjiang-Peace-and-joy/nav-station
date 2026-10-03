@@ -114,21 +114,24 @@
 ┌──────────────────────────────────────────────┐
 │  AppHeader（sticky 顶部，高 60px，底部 1px 分隔线）│
 │  ┌────────┬─────────────────────┬───────────┐ │
-│  │ 站名   │      搜索框（居中）    │ 主题切换  │ │
+│  │视图切换 │      搜索框（居中）    │ CTA/主题  │ │
 │  └────────┴─────────────────────┴───────────┘ │
-├──────────────────────────────────────────────┤
-│  TagFilter（标签 chips 栏，横向滚动）          │
-├──────────────────────────────────────────────┤
-│  主内容区（max-width 1080px，左右留白 ≥ 24px） │
-│  ├── 置顶区块（有置顶时显示）                  │
-│  └── 分类区块 × N                            │
-└──────────────────────────────────────────────┘
+├──────────┬───────────────────────────────────┤
+│ Sidebar  │ 主内容区                           │
+│ BrandMark│  ├── page-intro（视图标题+说明+计数）│
+│ + 站名   │  ├── 置顶区块（有置顶时显示）        │
+│ 分类导航 │  └── 分类区块 × N                  │
+│ 标签筛选 │                                   │
+└──────────┴───────────────────────────────────┘
 ```
 
 - Header 吸顶（`position: sticky; top: 0`），背景 `--bg-primary` + 半透明（alpha 0.85）+ `backdrop-filter: blur(8px)`；此 blur 仅用于 Header 滚动遮挡，属功能性而非装饰
-- 主内容上下 padding：`40px 24px`
+- 主内容上下 padding：`40px 24px`（`--space-8` / `--space-6`）
 - 分类区块间距 `--space-8`，分类内部站点间距 `--space-4`
-- 语义化结构：`<header>` → `<main>` → 每个分类用 `<section>` + `<h2>`（首页仅一个 `h1` 站名）。**不用 eyebrow/kicker、不用 01/02/03 编号**——标题自己承载层级
+- 语义化结构：`<header>` → 侧栏 `<h1>` 站名 → `<main>`（含 `page-intro`）→ 每个分类用 `<section>` + `<h2>`。**不用 eyebrow/kicker、不用 01/02/03 编号**——标题自己承载层级
+- `page-intro` 使用 `<p>` 承载视图标题（不是第二个 `h1`），右侧以 `--font-mono` 显示当前结果计数
+- 品牌标识 `BrandMark`：与 favicon 同源的几何山形标，用于登录页与侧栏，颜色走 `--accent`
+- 侧栏背景使用 `--bg-secondary`，与主内容区 `--bg-primary` 形成轻微分区层次
 
 ### 3.2 网格
 
@@ -149,9 +152,22 @@
 
 | 元素 | 规范 |
 |------|------|
-| 站名 | 左对齐，`--font-size-brand`，`--fg-primary`，`--font-brand` 字族，600 字重 |
-| 搜索框 | 居中，最大宽 `480px`，圆角 `--radius-sm`，背景 `--bg-secondary`，1px `--border` 边框；**聚焦用 focus ring（`--accent` 描边）而非阴影**，`caret-color: var(--caret)` |
+| 视图切换 | 分段控件，「我的 / 广场」；活动态 `--accent-muted` 底 + `--accent` 字 |
+| 搜索框 | 居中，最大宽 `480px`，圆角 `--radius-sm`，背景 `--bg-secondary`，1px `--border` 边框；聚焦用 focus ring（`--accent` 描边 + `--accent-muted` 外晕），`caret-color: var(--caret)` |
+| 主 CTA | 「添加网站 / 提交网站」使用强调色实心按钮（白字 + `--accent` 底），与次要描边按钮区分 |
 | 主题按钮 | 图标按钮 36×36px，透明背景，hover 时 `--bg-hover`，`aria-label` 区分当前状态 |
+
+### 4.1b BrandMark / 侧栏品牌
+
+- `BrandMark`：正方形圆角几何标（山形负形），填充 `--accent`，负形用 `--bg-secondary`
+- 侧栏 `h1`：BrandMark + 站名横排；站名 `--font-size-brand`、`--font-brand`、600
+
+### 4.1c 登录页
+
+- 品牌优先：BrandMark（40px）在上，站名 28px / 700 居中，副文案一行
+- 氛围：两个纯色 `--accent-muted` 圆形装饰（非渐变、非图片），仅登录页使用
+- 卡片入场：一次 `translateY(8px)` + 淡入，`--ease-out`，尊重 `prefers-reduced-motion`
+- 账户 chip 使用 `--radius-xs`（非胶囊 pill）
 
 ### 4.2 TagFilter（标签栏）
 
@@ -174,14 +190,16 @@
 
 | 状态 | 表现 |
 |------|------|
-| 默认 | 无背景、无边框，`--radius-md`，内边距 `10px 12px` |
+| 默认 | 无背景、无边框，`--radius-md`，内边距 `12px 14px` |
 | hover | 背景 `--bg-hover` + 1px `--border` 边框，**不叠加阴影、不上移**（声明一次高度） |
 | 星标（未置顶） | 默认隐藏，hover 显现，颜色 `--fg-tertiary`，SVG 线条 |
 | 星标（已置顶） | 常显，颜色 `--accent`，SVG 填充实心 |
 
-- favicon：20×20px，圆角 `--radius-xs`，加载失败降级为首字母色块（颜色由站点 id hash 映射到 6 个柔和色）
-- 描述：`--font-size-sm`，`--fg-secondary`，单行省略（`text-overflow: ellipsis`）
+- favicon 托盘：26×26px，`--bg-secondary` 底 + 1px `--border`，圆角 `--radius-sm`；内部图标 16×16px
+- favicon 加载失败降级为首字母色块（颜色由站点 id hash 映射到 6 个柔和色）
+- 描述：`--font-size-sm`，`--fg-secondary`，单行省略（`text-overflow: ellipsis`），左缩进对齐站名
 - 整个卡片为链接，点击 `target="_blank"` 新标签打开
+- 网格最小列宽 `--grid-min: 220px`，避免站名被操作区 padding 过度截断
 
 ### 4.4 CategorySection（分类区块）
 
@@ -192,7 +210,7 @@
 ```
 
 - 分类名与分隔线之间保持 `--space-3` 间距，分隔线与网格之间 `--space-4`
-- 计数文字 `--fg-tertiary`，`--font-size-xs`，`--font-mono`（数据用途）
+- 计数文字 `--fg-tertiary`，`--font-size-xs`，`--font-mono`（数据用途），置于弱底色 pill 中（仅作计数容器，非营销 chip）
 
 ### 4.5 置顶区块
 
@@ -201,13 +219,14 @@
 
 ### 4.6 空状态 / 加载状态
 
-- **空状态**（搜索无结果 / 分类无站点）：居中显示，图标为 SVG 线条（放大镜或空盒子），文案「没有找到与「xxx」相关的网站」，`--fg-secondary`
+- **空状态**（搜索无结果 / 分类无站点）：虚线边框容器居中，图标为 SVG 线条，文案「没有找到与「xxx」相关的网站」，`--fg-secondary`
 - **加载状态**（可选，数据较小可不做）：用 3~4 个骨架块，圆角 `--radius-md`，背景 `--bg-hover`，加轻微透明度呼吸动画（尊重 `prefers-reduced-motion`）
 
 ## 5. 交互与动效规范
 
 - **状态过渡**（hover / focus / 星标切换）：统一 `--transition`（150ms ease），过渡属性限定 `background-color, border-color, color, opacity`
 - **唯一作者式入场动效**：页面加载时网格项做一次交错淡入 + `translateY(4px)` 归零，使用 `--ease-out`（指数缓出），单卡片 300ms、按行 40ms 交错，总时长 ≤ 500ms
+- 登录卡片、`page-intro`、Toast、Modal 可各有一次同类短入场（≤ 420ms），同样尊重 `prefers-reduced-motion`
 - 禁止 scale 放大动画（破坏极简感）；hover 不上移
 - 焦点可见性：键盘 Tab 聚焦元素必须有可见 focus ring（`outline: 2px solid var(--accent); outline-offset: 2px`），仅 `:focus-visible` 触发
 - **尊重 `prefers-reduced-motion`**：检测到用户关闭动效时，入场动画与呼吸动画全部禁用
@@ -247,7 +266,7 @@
 
 ## 10. 禁止事项（红线）
 
-- ❌ 不使用渐变背景、不使用图片背景、**不使用渐变文字**（强调靠字重/字号）
+- ❌ 不使用渐变背景、不使用图片背景、**不使用渐变文字**（强调靠字重/字号）；登录页允许纯色 `--accent-muted` 圆形氛围块，禁止渐变/图片氛围
 - ❌ 不使用 emoji 作为图标（统一内联 SVG 线条图标）
 - ❌ 不引入第三方 UI 组件库 / 图标库（用内联 SVG）
 - ❌ 卡片不添加默认背景色块、不添加粗边框；**hover 不同时叠加边框+阴影**（ghost card）

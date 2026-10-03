@@ -22,6 +22,7 @@ src/
 ├── components/
 │   ├── AppHeader.vue       # 我的/广场切换、搜索、主题、用户菜单、广场提交入口
 │   ├── AppSidebar.vue      # 分类、置顶、标签导航；移动端 drawer
+│   ├── BrandMark.vue       # 品牌几何标识（登录页与侧栏共用）
 │   ├── CategorySection.vue
 │   ├── LoginView.vue
 │   ├── PlazaSiteCard.vue   # 广场卡片：添加 / 编辑 / 下架恢复
@@ -70,6 +71,7 @@ src/
 |---|---|---|
 | `AppHeader` | `query`、`theme`、`viewMode`、`includeArchived`、用户与账户 | `update:query`、`update:viewMode`、`update:includeArchived`、`create-site`（我的）、`create-plaza`（广场）、主题/菜单/登出/切账户 |
 | `AppSidebar` | 分类、标签、活动项、计数、`showPinned`、`brandTitle`、drawer | `update:active-category`、`update:active-tag`、`close` |
+| `BrandMark` | `size`（可选，默认 28） | 无；纯展示品牌几何标识 |
 | `LoginView` | `theme` | `login`、`toggle-theme` |
 | `CategorySection` | `title`、`sites` | `leading` slot 与默认 slot |
 | `SiteCard` | `site`、`isPinned`、`index`、`syncing` | `toggle-pin`、`sync-from-plaza` |
