@@ -102,6 +102,28 @@ const mineIsEmpty = computed(
   () => !loadError.value && sites.value.length === 0 && !searchQuery.value && !activeTag.value
 )
 
+const pageIntro = computed(() => {
+  if (isPlaza.value) {
+    return {
+      title: '广场',
+      desc: '浏览与分享全站公开导航资源'
+    }
+  }
+  return {
+    title: '我的目录',
+    desc: '按分类浏览你收藏的站点'
+  }
+})
+
+const resultCount = computed(() => {
+  if (isPlaza.value) {
+    return plazaDisplayGroups.value.reduce((sum, group) => sum + group.sites.length, 0)
+  }
+  let count = displayGroups.value.reduce((sum, group) => sum + group.sites.length, 0)
+  if (showPinnedView.value) count += pinnedSites.value.length
+  return count
+})
+
 onMounted(async () => {
   initTheme()
   await initAuth()
@@ -318,6 +340,17 @@ function clearCurrentFilters() {
       />
 
       <main class="app-main">
+        <header v-if="!currentLoadError" class="page-intro">
+          <div class="page-intro-copy">
+            <p class="page-intro-title">{{ pageIntro.title }}</p>
+            <p class="page-intro-desc">{{ pageIntro.desc }}</p>
+          </div>
+          <p v-if="(isPlaza ? plazaHasResults : hasResults)" class="page-intro-meta">
+            <span class="page-intro-count">{{ resultCount }}</span>
+            <span>个站点</span>
+          </p>
+        </header>
+
         <template v-if="currentLoadError">
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">

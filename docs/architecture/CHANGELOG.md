@@ -2,6 +2,12 @@
 
 记录架构级决策与边界变化，不替代 Git history。
 
+## 2026-10-03 — 前端视觉精致化（品牌标识与信息层次）
+
+- **原因：** 页面在极简令牌下显得过于平坦，需要在不破坏 VISUAL 约束的前提下增强品牌识别、层次与入场动效。
+- **变更：** 新增 `BrandMark.vue`；登录页加入品牌标识与纯色氛围圆；侧栏品牌并排展示标识；主内容区增加 `page-intro`（视图标题/说明/计数）；站点 favicon 使用托盘容器；顶栏主 CTA 使用强调色；同步更新 `VISUAL.md`。
+- **影响文件：** `src/components/{BrandMark,LoginView,AppSidebar,AppHeader,SiteCard,PlazaSiteCard}.vue`、`src/App.vue`、`src/styles/main.css`、`VISUAL.md`、`docs/architecture/{frontend,CHANGELOG}.md`
+
 ## 2026-09-07 — 「我的」创建站点 + 可选同步公开到广场
 
 - **原因：** 「我的」此前只能从广场导入或被动接收数据，需要支持直接上传网址，并可选择性公开到广场共享。

@@ -61,16 +61,18 @@ function onArchiveToggle() {
   >
     <a :href="site.url" target="_blank" rel="noopener noreferrer" class="site-card-link">
       <div class="site-card-top">
-        <img
-          v-if="!faviconError"
-          :src="faviconUrl"
-          :alt="`${site.name} 图标`"
-          class="site-favicon"
-          loading="lazy"
-          @error="faviconError = true"
-        />
-        <span v-else class="site-favicon favicon-fallback" :class="fallbackClass">
-          {{ nameChar }}
+        <span class="site-favicon-wrap">
+          <img
+            v-if="!faviconError"
+            :src="faviconUrl"
+            :alt="`${site.name} 图标`"
+            class="site-favicon"
+            loading="lazy"
+            @error="faviconError = true"
+          />
+          <span v-else class="site-favicon favicon-fallback" :class="fallbackClass">
+            {{ nameChar }}
+          </span>
         </span>
         <span class="site-name">{{ site.name }}</span>
         <span v-if="isArchived" class="plaza-status-badge">已下架</span>

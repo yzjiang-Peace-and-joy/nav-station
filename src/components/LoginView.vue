@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import BrandMark from './BrandMark.vue'
 
 const props = defineProps({
   theme: { type: String, default: 'light' }
@@ -39,6 +40,11 @@ defineExpose({ setError: (msg) => { error.value = msg } })
 
 <template>
   <div class="login-page">
+    <div class="login-ambient" aria-hidden="true">
+      <span class="login-orb login-orb--primary" />
+      <span class="login-orb login-orb--secondary" />
+    </div>
+
     <button
       type="button"
       class="login-theme-toggle"
@@ -73,10 +79,13 @@ defineExpose({ setError: (msg) => { error.value = msg } })
     </button>
 
     <div class="login-card">
-      <h1 class="login-title">导航站</h1>
-      <p class="login-subtitle">登录以访问你的站点收藏</p>
+      <div class="login-brand">
+        <BrandMark :size="40" />
+        <h1 class="login-title">导航站</h1>
+      </div>
+      <p class="login-subtitle">登录后管理个人目录与共享广场</p>
 
-      <div class="login-accounts">
+      <div class="login-accounts" role="group" aria-label="快捷选择账户">
         <button
           v-for="name in accounts"
           :key="name"
@@ -118,3 +127,4 @@ defineExpose({ setError: (msg) => { error.value = msg } })
     </div>
   </div>
 </template>
+
