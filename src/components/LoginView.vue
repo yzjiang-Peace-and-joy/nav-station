@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import BrandMark from './BrandMark.vue'
 
 const props = defineProps({
   theme: { type: String, default: 'light' }
@@ -72,8 +73,14 @@ defineExpose({ setError: (msg) => { error.value = msg } })
       </svg>
     </button>
 
+    <div class="login-glow login-glow--a" aria-hidden="true"></div>
+    <div class="login-glow login-glow--b" aria-hidden="true"></div>
+
     <div class="login-card">
-      <h1 class="login-title">导航站</h1>
+      <div class="login-brand">
+        <BrandMark :size="40" />
+        <h1 class="login-title">导航站</h1>
+      </div>
       <p class="login-subtitle">登录以访问你的站点收藏</p>
 
       <div class="login-accounts">

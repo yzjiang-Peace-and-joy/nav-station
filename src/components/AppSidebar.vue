@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, nextTick } from 'vue'
+import BrandMark from './BrandMark.vue'
 import TagFilter from './TagFilter.vue'
 
 const props = defineProps({
@@ -59,8 +60,11 @@ function onTagSearchKeydown(event) {
 </script>
 
 <template>
-  <aside class="app-sidebar" :class="{ 'is-open': open }" aria-label="分类导航">
-    <h1 class="sidebar-brand">{{ brandTitle }}</h1>
+  <aside id="app-sidebar" class="app-sidebar" :class="{ 'is-open': open }" aria-label="分类导航">
+    <h1 class="sidebar-brand">
+      <BrandMark :size="28" />
+      <span>{{ brandTitle }}</span>
+    </h1>
 
     <div class="sidebar-body">
       <div class="sidebar-section sidebar-section--nav">

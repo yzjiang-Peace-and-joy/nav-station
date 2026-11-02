@@ -45,36 +45,26 @@ function onSync() {
 </script>
 
 <template>
-  <article
-    class="site-card"
-    :style="staggerStyle"
-    :aria-describedby="site.detail ? `tip-${site.id}` : undefined"
-  >
+  <article class="site-card" :style="staggerStyle">
     <a :href="site.url" target="_blank" rel="noopener noreferrer" class="site-card-link">
       <div class="site-card-top">
-        <img
-          v-if="!faviconError"
-          :src="faviconUrl"
-          :alt="`${site.name} 图标`"
-          class="site-favicon"
-          loading="lazy"
-          @error="faviconError = true"
-        />
-        <span v-else class="site-favicon favicon-fallback" :class="fallbackClass">
-          {{ nameChar }}
+        <span class="site-favicon-tray">
+          <img
+            v-if="!faviconError"
+            :src="faviconUrl"
+            :alt="`${site.name} 图标`"
+            class="site-favicon"
+            loading="lazy"
+            @error="faviconError = true"
+          />
+          <span v-else class="site-favicon favicon-fallback" :class="fallbackClass">
+            {{ nameChar }}
+          </span>
         </span>
         <span class="site-name">{{ site.name }}</span>
       </div>
-      <p class="site-desc">{{ site.desc }}</p>
+      <p class="site-desc" :title="site.desc || undefined">{{ site.desc }}</p>
     </a>
-    <div
-      v-if="site.detail"
-      :id="`tip-${site.id}`"
-      class="site-tooltip"
-      role="tooltip"
-    >
-      {{ site.detail }}
-    </div>
     <div class="site-card-actions">
       <button
         v-if="canSync"

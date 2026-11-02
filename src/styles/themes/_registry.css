@@ -1,0 +1,6 @@
+/* Theme pack registry.
+   Implemented: sunset-coral (light + dark).
+   Reserved — empty shells, no settings UI:
+     soft-pop, mint-pop, lav-cream, platinum, nova-cyan
+*/
+@import './sunset-coral.css';

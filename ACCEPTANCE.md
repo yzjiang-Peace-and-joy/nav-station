@@ -70,12 +70,12 @@
 | # | 验收点 | 判定 |
 |---|--------|------|
 | V-01 | 完全使用《VISUAL.md》设计令牌，无组件内写死颜色 | 通过/失败 |
-| V-02 | 极简风：卡片默认无背景色块、无粗边框，hover 才出现交互态 | 通过/失败 |
+| V-02 | 个人 SiteCard 常态浅底 + 1px 细边；hover 只改边框或只加阴影，二者不叠加 | 通过/失败 |
 | V-03 | 两主题下正文对比度 ≥ 4.5:1 | 通过/失败 |
 | V-04 | Header 吸顶且背景半透明模糊 | 通过/失败 |
 | V-05 | 全站过渡动画统一 150ms ease | 通过/失败 |
 | V-06 | 键盘 Tab 聚焦有可见 focus ring | 通过/失败 |
-| V-07 | 响应式：≥1080px 居中、<720px 网格降级为 `minmax(160px,1fr)` | 通过/失败 |
+| V-07 | 响应式：侧栏常驻、主栏流体；`<720px` 网格降级为 `minmax(160px,1fr)` 且侧栏改为 drawer | 通过/失败 |
 
 ---
 
@@ -86,7 +86,7 @@
 | C-01 | 目录结构符合《ARCHITECTURE.md》§2 | 无多余文件、无组件缺位 |
 | C-02 | 组件不直接 `import sites.json`，不直接读写 localStorage | 职责收敛于 composables |
 | C-03 | 组件通信走 props/emit，无跨层引用 | 符合 §5 约定 |
-| C-04 | localStorage key 带 `nav_` 前缀 | `nav_theme` / `nav_pinned` |
+| C-04 | 浏览器偏好键有 `nav` 命名空间 | `nav_token` / `nav_user` / `nav.themePack` / `nav.colorScheme`；置顶不进 localStorage |
 | C-05 | 全部颜色/间距/圆角走 CSS 变量 | 无魔法数值 |
 | C-06 | 无 `!important`、无内联样式写死颜色 | — |
 | C-07 | 无控制台 warning / error | 含运行时警告 |

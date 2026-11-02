@@ -2,6 +2,12 @@
 
 记录架构级决策与边界变化，不替代 Git history。
 
+## 2026-11-02 — 主题包与深浅分层
+
+- **原因：** 个人导航视觉从单一冷蓝 `data-theme` 改为可扩展主题包。本期只落地 sunset-coral，但组件必须只消费语义 token。
+- **变更：** `<html>` 同时使用 `data-theme-pack` 与 `data-color-scheme`。颜色字面量移到 `src/styles/themes/`。偏好键改为 `nav.themePack` 与 `nav.colorScheme`（含 `system`），并兼容读取旧 `nav_theme`。新增展示组件 `BrandMark`。广场信息架构与接口不变。
+- **影响文件：** `src/composables/useTheme.js`、`src/styles/themes/`、`src/components/BrandMark.vue`、`index.html`、`docs/architecture/{frontend,overview,CHANGELOG}.md`、`VISUAL.md`
+
 ## 2026-09-07 — 「我的」创建站点 + 可选同步公开到广场
 
 - **原因：** 「我的」此前只能从广场导入或被动接收数据，需要支持直接上传网址，并可选择性公开到广场共享。
