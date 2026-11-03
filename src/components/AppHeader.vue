@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import UserMenu from './UserMenu.vue'
 
 const props = defineProps({
@@ -8,7 +8,8 @@ const props = defineProps({
   username: { type: String, default: '' },
   otherAccounts: { type: Array, default: () => [] },
   viewMode: { type: String, default: 'mine' },
-  includeArchived: { type: Boolean, default: false }
+  includeArchived: { type: Boolean, default: false },
+  menuOpen: { type: Boolean, default: false }
 })
 
 const emit = defineEmits([
@@ -31,15 +32,46 @@ const searchPlaceholder = computed(() =>
 function onInput(event) {
   emit('update:query', event.target.value)
 }
+
+const headerRef = ref(null)
+const narrowQuery = window.matchMedia('(max-width: 720px)')
+let resizeObserver = null
+
+function syncHeaderHeight() {
+  const root = document.documentElement
+  if (!narrowQuery.matches) {
+    root.style.removeProperty('--header-height')
+    return
+  }
+  const height = Math.ceil(headerRef.value?.getBoundingClientRect().height || 0)
+  if (height > 0) root.style.setProperty('--header-height', `${height}px`)
+}
+
+onMounted(() => {
+  syncHeaderHeight()
+  if (headerRef.value && typeof ResizeObserver !== 'undefined') {
+    resizeObserver = new ResizeObserver(syncHeaderHeight)
+    resizeObserver.observe(headerRef.value)
+  }
+  narrowQuery.addEventListener('change', syncHeaderHeight)
+})
+
+onBeforeUnmount(() => {
+  resizeObserver?.disconnect()
+  narrowQuery.removeEventListener('change', syncHeaderHeight)
+  document.documentElement.style.removeProperty('--header-height')
+})
 </script>
 
 <template>
-  <header class="app-header">
+  <header ref="headerRef" class="app-header">
     <div class="app-header-inner">
       <button
         type="button"
         class="menu-toggle"
-        aria-label="打开分类导航"
+        :aria-label="menuOpen ? '关闭分类导航' : '打开分类导航'"
+        :aria-expanded="menuOpen"
+        aria-controls="app-sidebar"
         @click="emit('toggle-menu')"
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
@@ -109,7 +141,7 @@ function onInput(event) {
             提交网站
           </button>
         </template>
-        <button v-else type="button" class="header-text-btn" @click="emit('create-site')">
+        <button v-else type="button" class="header-cta" @click="emit('create-site')">
           添加网站
         </button>
         <UserMenu

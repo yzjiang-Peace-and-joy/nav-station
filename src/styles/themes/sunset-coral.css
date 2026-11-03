@@ -1,0 +1,62 @@
+/* sunset-coral — light + dark semantic colors.
+   Literals belong in this file only. Components consume the variables. */
+
+html[data-theme-pack='sunset-coral'] {
+  --bg-primary: #fff7f5;
+  --bg-secondary: #ffffff;
+  --bg-hover: rgba(244, 63, 94, 0.06);
+  --fg-primary: #2a1218;
+  --fg-secondary: #7c4a56;
+  --fg-tertiary: #8f5f6b;
+  --border: rgba(42, 18, 24, 0.1);
+  --border-strong: rgba(42, 18, 24, 0.18);
+  --accent: #f43f5e;
+  --accent-fill: #f43f5e;
+  --accent-muted: rgba(244, 63, 94, 0.12);
+  --on-accent: #ffffff;
+  --danger: #e11d48;
+  --danger-fg: #e11d48;
+  --selection-bg: rgba(244, 63, 94, 0.2);
+  --caret: #f43f5e;
+  --favicon-0: #f43f5e;
+  --favicon-1: #e879f9;
+  --favicon-2: #fb923c;
+  --favicon-3: #a78bfa;
+  --favicon-4: #2dd4bf;
+  --favicon-5: #f472b6;
+  --favicon-fg: #fff7f5;
+  --shadow-hover: 0 4px 16px rgba(42, 18, 24, 0.08);
+  --glow-ambient: rgba(251, 113, 133, 0.22);
+  --overlay: rgba(42, 18, 24, 0.36);
+  color-scheme: light;
+}
+
+html[data-theme-pack='sunset-coral'][data-color-scheme='dark'] {
+  --bg-primary: #140a12;
+  --bg-secondary: #1f121c;
+  --bg-hover: rgba(251, 113, 133, 0.08);
+  --fg-primary: #fdf2f8;
+  --fg-secondary: #d4a8b4;
+  --fg-tertiary: #a87884;
+  --border: rgba(253, 242, 248, 0.1);
+  --border-strong: rgba(253, 242, 248, 0.22);
+  --accent: #fb7185;
+  --accent-fill: #f43f5e;
+  --accent-muted: rgba(251, 113, 133, 0.16);
+  --on-accent: #ffffff;
+  --danger: #fb7185;
+  --danger-fg: #fda4af;
+  --selection-bg: rgba(251, 113, 133, 0.3);
+  --caret: #fb7185;
+  --favicon-0: #f43f5e;
+  --favicon-1: #e879f9;
+  --favicon-2: #fb923c;
+  --favicon-3: #a78bfa;
+  --favicon-4: #2dd4bf;
+  --favicon-5: #f472b6;
+  --favicon-fg: #fdf2f8;
+  --shadow-hover: 0 4px 18px rgba(0, 0, 0, 0.45);
+  --glow-ambient: rgba(251, 113, 133, 0.28);
+  --overlay: rgba(0, 0, 0, 0.55);
+  color-scheme: dark;
+}

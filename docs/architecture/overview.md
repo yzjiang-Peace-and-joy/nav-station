@@ -66,7 +66,7 @@ sequenceDiagram
 - SQLite 广场域：`plaza_categories`、`plaza_tags`、`plaza_sites`、`plaza_site_tags`；个人 `sites.source_plaza_site_id` 追溯导入来源。
 - `nav_token`：浏览器认证缓存，不是业务数据。
 - `nav_user`：浏览器中的用户名显示缓存。
-- `nav_theme`：浏览器主题偏好。
+- `nav.themePack` / `nav.colorScheme`：浏览器主题包与深浅偏好（`system` 跟随系统）。旧键 `nav_theme` 只作迁移读取。
 - `src/data/sites.json`：seed 输入，写入广场；不是运行时前端业务数据源。
 
 跨栈契约变化必须同时检查 API client、对应 composable、路由实现和本页 API 表。

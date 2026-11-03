@@ -19,6 +19,6 @@ Scan `src/`, `package.json`, `vite.config.js`, and `index.html`. Update docs onl
 
 - [ ] `src/components/` list matches `frontend.md` directory tree
 - [ ] `src/composables/` list and public APIs match §3
-- [ ] localStorage keys in code match §5 (`nav_token`, `nav_user`, `nav_theme` only for business-adjacent browser state)
+- [ ] localStorage keys in code match §5 (`nav_token`, `nav_user`, `nav.themePack`, `nav.colorScheme`; legacy `nav_theme` is read-only fallback)
 - [ ] No doc still claims pins live in localStorage
 - [ ] Overview API table still matches frontend clients

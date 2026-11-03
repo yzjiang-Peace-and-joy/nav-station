@@ -22,6 +22,7 @@ src/
 ├── components/
 │   ├── AppHeader.vue       # 我的/广场切换、搜索、主题、用户菜单、广场提交入口
 │   ├── AppSidebar.vue      # 分类、置顶、标签导航；移动端 drawer
+│   ├── BrandMark.vue       # 登录与侧栏共用的几何品牌标
 │   ├── CategorySection.vue
 │   ├── LoginView.vue
 │   ├── PlazaSiteCard.vue   # 广场卡片：添加 / 编辑 / 下架恢复
@@ -35,7 +36,12 @@ src/
 │   ├── usePlaza.js
 │   ├── useSites.js
 │   └── useTheme.js
-└── styles/main.css
+└── styles/
+    ├── main.css            # 结构、间距、圆角、字体与组件规则（无品牌色字面量）
+    └── themes/
+        ├── _registry.css   # 主题包注册；本期只引入 sunset-coral
+        ├── sunset-coral.css
+        └── *.css           # soft-pop / mint-pop / lav-cream / platinum / nova-cyan 预留空壳
 ```
 
 组件使用 `PascalCase.vue`，composable 使用 `use` 前缀驼峰命名，CSS 变量使用 `--kebab-case`。
@@ -60,7 +66,7 @@ src/
 
 ### `useTheme.js`
 
-管理 `light`/`dark` 主题，读取与写入 localStorage 键 `nav_theme`，并更新 `<html data-theme>`。`index.html` 内联脚本在首屏前写入 `data-theme` 以避免 FOUC；`App.vue` 挂载时再调用 `init()` 同步 composable 状态。
+管理主题包与深浅两层。主题包 id 写入 `<html data-theme-pack>`，解析后的 `light`/`dark` 写入 `<html data-color-scheme>`。本期只应用 `sunset-coral`。localStorage 键为 `nav.themePack`（默认 `sunset-coral`）与 `nav.colorScheme`（`light` | `dark` | `system`，默认 `system`）。`system` 跟随 `prefers-color-scheme`，并在系统变化时更新已解析的深浅。旧键 `nav_theme` 仅在新键缺失时作为深浅迁移来源。`index.html` 内联脚本在首帧前写入这两个 data 属性以避免 FOUC；`App.vue` 挂载时再调用 `init()` 同步 composable 状态。Header / 登录的深浅按钮只切换 color scheme，不切换主题包。
 
 ## 4. 组件通信
 
@@ -68,8 +74,9 @@ src/
 
 | 组件 | 主要输入 | 主要输出 |
 |---|---|---|
-| `AppHeader` | `query`、`theme`、`viewMode`、`includeArchived`、用户与账户 | `update:query`、`update:viewMode`、`update:includeArchived`、`create-site`（我的）、`create-plaza`（广场）、主题/菜单/登出/切账户 |
+| `AppHeader` | `query`、`theme`、`viewMode`、`includeArchived`、`menuOpen`、用户与账户 | `update:query`、`update:viewMode`、`update:includeArchived`、`create-site`（我的）、`create-plaza`（广场）、主题/菜单/登出/切账户 |
 | `AppSidebar` | 分类、标签、活动项、计数、`showPinned`、`brandTitle`、drawer | `update:active-category`、`update:active-tag`、`close` |
+| `BrandMark` | `size` | 无；登录品牌区与侧栏 `h1` 共用 |
 | `LoginView` | `theme` | `login`、`toggle-theme` |
 | `CategorySection` | `title`、`sites` | `leading` slot 与默认 slot |
 | `SiteCard` | `site`、`isPinned`、`index`、`syncing` | `toggle-pin`、`sync-from-plaza` |
@@ -84,7 +91,9 @@ src/
 |---|---|---|
 | `nav_token` | JWT access token | `api/client.js` |
 | `nav_user` | 当前用户名缓存 | `useAuth.js` |
-| `nav_theme` | `light` 或 `dark` | `useTheme.js` |
+| `nav.themePack` | 主题包 id，本期 `sunset-coral` | `useTheme.js` |
+| `nav.colorScheme` | `light`、`dark` 或 `system` | `useTheme.js` |
+| `nav_theme` | 旧深浅键；仅当 `nav.colorScheme` 缺失时读取 | `useTheme.js` |
 
 站点、分类、标签、置顶与广场均由后端 SQLite 持久化；`nav_pinned` 已废弃，不得重新引入。
 

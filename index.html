@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme-pack="sunset-coral" data-color-scheme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,22 +8,33 @@
     <title>个人导航站</title>
     <script>
       ;(function () {
+        var pack = 'sunset-coral'
+        var scheme = 'system'
         try {
-          var stored = localStorage.getItem('nav_theme')
-          var theme = stored === 'light' || stored === 'dark' ? stored : null
-          if (!theme) {
-            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          var storedPack = localStorage.getItem('nav.themePack')
+          if (storedPack === 'sunset-coral') pack = storedPack
+          var storedScheme = localStorage.getItem('nav.colorScheme')
+          if (storedScheme === 'light' || storedScheme === 'dark' || storedScheme === 'system') {
+            scheme = storedScheme
+          } else {
+            var legacy = localStorage.getItem('nav_theme')
+            if (legacy === 'light' || legacy === 'dark') scheme = legacy
           }
-          document.documentElement.setAttribute('data-theme', theme)
-        } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'light')
+        } catch (e) {}
+        var resolved = scheme
+        if (resolved !== 'light' && resolved !== 'dark') {
+          resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         }
+        var root = document.documentElement
+        root.setAttribute('data-theme-pack', pack)
+        root.setAttribute('data-color-scheme', resolved)
+        root.removeAttribute('data-theme')
       })()
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>

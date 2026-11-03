@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, nextTick, watch } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import AppHeader from './components/AppHeader.vue'
 import AppSidebar from './components/AppSidebar.vue'
 import CategorySection from './components/CategorySection.vue'
@@ -102,7 +102,12 @@ const mineIsEmpty = computed(
   () => !loadError.value && sites.value.length === 0 && !searchQuery.value && !activeTag.value
 )
 
+function onKeydown(event) {
+  if (event.key === 'Escape' && sidebarOpen.value) closeSidebar()
+}
+
 onMounted(async () => {
+  document.addEventListener('keydown', onKeydown)
   initTheme()
   await initAuth()
   if (isAuthenticated.value) {
@@ -111,7 +116,11 @@ onMounted(async () => {
   await nextTick()
   setTimeout(() => {
     entered.value = true
-  }, 600)
+  }, 520)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', onKeydown)
 })
 
 watch(viewMode, async (mode) => {
@@ -283,6 +292,7 @@ function clearCurrentFilters() {
       :other-accounts="otherAccounts"
       :view-mode="viewMode"
       :include-archived="includeArchived"
+      :menu-open="sidebarOpen"
       @update:query="onUpdateQuery"
       @update:view-mode="viewMode = $event"
       @update:include-archived="setIncludeArchived"
@@ -318,6 +328,14 @@ function clearCurrentFilters() {
       />
 
       <main class="app-main">
+        <div v-if="!isPlaza" class="page-intro">
+          <div class="page-intro-copy">
+            <p class="page-intro-title">我的目录</p>
+            <p class="page-intro-desc">个人收藏，搜索后快速打开</p>
+          </div>
+          <p class="page-intro-count">{{ sites.length }}</p>
+        </div>
+
         <template v-if="currentLoadError">
           <div class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -419,7 +437,7 @@ function clearCurrentFilters() {
           </CategorySection>
         </template>
 
-        <div v-else class="empty-state">
+        <div v-else class="empty-state empty-state--panel">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
             <path d="M21 21l-4.3-4.3M8 11h6" />

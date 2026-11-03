@@ -24,7 +24,7 @@ Do not treat root `architecture.md` as the source of truth; it is a pointer to `
 
 - Frontend: Vue 3 SPA at repo root (`src/`), Vite on `5173`, no router/Pinia.
 - Backend: FastAPI in `backend/`, SQLAlchemy + SQLite, JWT auth, port `9966`.
-- Boundary: browser calls same-origin `/api` (Vite proxy or Nginx). Business data lives in SQLite; localStorage only holds `nav_token`, `nav_user`, `nav_theme`.
+- Boundary: browser calls same-origin `/api` (Vite proxy or Nginx). Business data lives in SQLite; localStorage holds `nav_token`, `nav_user`, `nav.themePack`, and `nav.colorScheme` (`nav_theme` is a legacy scheme fallback).
 
 ## Key paths
 
